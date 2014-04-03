@@ -20,7 +20,8 @@
 
 	<servlet>
 		<servlet-name>Login</servlet-name>
-		<servlet-class>org.nhnnext.LoginServlet</servlet-class>
+		<!-- <servlet-class>Login.jsp</servlet-class> -->
+ 		<servlet-class>org.nhnnext.LoginServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

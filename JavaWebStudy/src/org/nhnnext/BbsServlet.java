@@ -26,11 +26,12 @@ public class BbsServlet extends HttpServlet {
 		String content = req.getParameter("content");
 		BbsDAO dao = new BbsDAO();
 		dao.addArticle(title, content);
-		ArrayList<Bbs> bbsList = dao.showArticles();
-		for (Bbs bbs : bbsList) {
-			writer.println(bbs.getName() + " | " + bbs.getTitle() + "|" + bbs.getContents() + "<br>");
+		ArrayList<BbsArticle> bbsList = dao.showBoard();
+		for (BbsArticle bbsArticle : bbsList) {
+			writer.println(bbsArticle.getName() + " | " + bbsArticle.getTitle()
+					+ "|" + bbsArticle.getContents() + "<br>");
 		}
+		writer.close();
 	}
 
-	
 }

@@ -1,72 +1,112 @@
 package org.nhnnext;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BbsDAO {
-	public void addArticle(String title, String content) {
-		Connection connection;
-		Statement statement;
-		String sql;
-		String jdbcUrl = "jdbc:mysql://localhost:3306/webDB";
-		String databaseID = "root";
-		String databasePW = "";
+	Connection connection;
+	Statement statement;
+	PreparedStatement prepStatement;
+	ResultSet resultset;
+	String sql;
+
+	public boolean addArticle(String title, String content) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found : " + e);
-		} 
-		try {
-			sql = "INSERT INTO WEBBOARD (name, title, content) VALUES ('TEMP','" + title + "','" + content +"')" ;
-			connection = DriverManager.getConnection(jdbcUrl, databaseID, databasePW);
-			statement = connection.createStatement();
-			statement.executeUpdate(sql);
-			statement.close();
+			connection = ConnectionManager.createConnection();
+			sql = "INSERT INTO WEBBOARD (name, title, content) VALUES (?, ?, ?)";
+			prepStatement = connection.prepareStatement(sql);
+			prepStatement.setString(1, "TEMP");
+			prepStatement.setString(2, title);
+			prepStatement.setString(3, content);
+			prepStatement.execute();
+//			execute(), executeQuery(), executeUpdate() 등의 차이
+			prepStatement.close();
 			connection.close();
-		} catch (SQLException e){
+			return true;
+		} catch (SQLException e) {
 			System.err.println("SQL Error : " + e);
 		} catch (Exception e) {
 			System.err.println("Error : " + e);
 		}
+		return false;
 	}
-	
-	public ArrayList<Bbs> showArticles() {
-		Connection connection;
-		Statement statement;
-		ResultSet resultset;
-		String sql;
-		String jdbcUrl = "jdbc:mysql://localhost:3306/webDB";
-		String databaseID = "root";
-		String databasePW = "";
+
+	public boolean updateArticle(int id, String name, String title,
+			String content) {
+
+		return false;
+	}
+
+	public boolean deleteArticle(int id) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found : " + e);
-		} 
+			connection = ConnectionManager.createConnection();
+			sql = "DELETE FROM WEBBOARD WHERE ID = ?";
+			prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, id);
+			prepStatement.execute();
+			prepStatement.close();
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			System.err.println("SQL Error : " + e);
+		} catch (Exception e) {
+			System.err.println("Error : " + e);
+		}
+		System.out.println("Article is not in DB");
+		return false;
+	}
+
+	public BbsArticle findArticle(int id) {
 		try {
-			sql = "SELECT * FROM WEBBOARD" ;
-			connection = DriverManager.getConnection(jdbcUrl, databaseID, databasePW);
+			connection = ConnectionManager.createConnection();
+			sql = "SELECT * FROM WEBBOARD WHERE ID = ?";
+			prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, id);
+			resultset = prepStatement.executeQuery();
+			BbsArticle article;
+			if (resultset.next()) {
+				article = new BbsArticle(resultset.getString("NAME"), resultset.getString("TITLE"), resultset.getString("CONTENT"));
+			} else {
+				article = null;
+			}
+			resultset.close();
+			prepStatement.close();
+			connection.close();
+			return article;
+		} catch (SQLException e) {
+			System.err.println("findArticle SQL Error : " + e);
+		} catch (Exception e) {
+			System.err.println("Error : " + e);
+		}
+		return null;		
+	}
+
+	public ArrayList<BbsArticle> showBoard() {
+
+		try {
+			connection = ConnectionManager.createConnection();
+			sql = "SELECT * FROM WEBBOARD";
 			statement = connection.createStatement();
 			resultset = statement.executeQuery(sql);
-			ArrayList<Bbs> bbsList = new ArrayList<Bbs>();
+			ArrayList<BbsArticle> articleList = new ArrayList<BbsArticle>();
 			while (resultset.next()) {
-				Bbs bbs = new Bbs(resultset.getString("NAME"), resultset.getString("TITLE"), resultset.getString("CONTENT"));
-				bbsList.add(bbs);
+				BbsArticle bbs = new BbsArticle(resultset.getString("NAME"),
+						resultset.getString("TITLE"),
+						resultset.getString("CONTENT"));
+				articleList.add(bbs);
 			}
-//			writer.println(resultset.getString("NAME") + " | " + resultset.getString("TITLE") + " | " + resultset.getString("CONTENT") + "<br>");
 			statement.close();
 			connection.close();
-			return bbsList;
-		} catch (SQLException e){
+			return articleList;
+		} catch (SQLException e) {
 			System.err.println("SQL Error : " + e);
 		} catch (Exception e) {
 			System.err.println("Error : " + e);
 		}
-		return new ArrayList<Bbs>();
+		return new ArrayList<BbsArticle>();
 	}
 }
