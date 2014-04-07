@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="myCSS.css" />
+<link rel="stylesheet" type="text/css" href="/myCSS.css" />
 <script type = "text/javascript">
 	function checkBbsValue(){
 		if(document.bbs.title.value == ""){
@@ -51,20 +51,9 @@
                 </form>
 			</div>
 			
-			<%
-				String max = request.getParameter("max");
-				try {
-					int maxValue = Integer.parseInt(max);
-					for (int i = 0; i < maxValue; i++) {
-						out.println(i + "<br>");
-					}
-				} catch (Exception e) {
-					out.println("<font color = red>"
-							+ "<B>Enter the max value</B></FONT>");
-				}
-			%>
+
 			
-			<form name="Clock" action="/clock/">
+<!-- 			<form name="Clock" action="/clock/">
 				<center>
 					<i><input type="submit" value="What Time Is It Now?"></i>
 				</center>
@@ -73,11 +62,14 @@
 			<form name="timetable" action="timetable">
 				<a href="TimeTable.html"><input type="button"
 					value="show timetable"></a>
-			</form>
+			</form> -->
 
 		</div>
 		<div class="layout-right">
 			<div id="login_wrap">
+			<%
+				if (session.getAttribute("ID") == null){
+			%>
 				<form name="login" action="/login/" method="post">
 					<div id="login_inputs">
 						<input type="text" name="id" value="아이디" autofocus><br>
@@ -87,6 +79,18 @@
 						<input type="submit" value="Login" onclick = "checkLoginValue();">
 					</div>
 				</form>
+			<%
+				} else {
+					out.println("Login Completed.<br>");
+					out.println(session.getAttribute("ID") + " 접속중<br>");
+					StringBuffer buf = new StringBuffer();
+					buf.append("<form name = 'logout' action = '/logout/' method ='post'>");
+					buf.append("<input type='submit' value='로그아웃'>");
+					buf.append("</form><br>");
+					out.println(buf);
+				}
+			%>
+
 			</div>
 		</div>
 	</div>

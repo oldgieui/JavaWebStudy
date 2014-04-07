@@ -7,6 +7,10 @@ javax.servlet.http.HttpServletRequest,
 javax.servlet.http.HttpServletResponse"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	/* session.setAttribute("id", request.getParameter("id"));
+	session.setAttribute("password", request.getParameter("password")); */
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,8 +26,8 @@ javax.servlet.http.HttpServletResponse"%>
 	</div>
 	<div class="container">
 		<%
-			String id = request.getParameter("id");
-			String password = request.getParameter("password");
+			String id = (String)session.getAttribute("id");
+			String password = (String)session.getAttribute("password");
 			UserDAO dao = new UserDAO();
 			out.println(dao.loginCheck(id, password));
 		%>

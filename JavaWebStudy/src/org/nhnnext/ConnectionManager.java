@@ -12,10 +12,10 @@ public class ConnectionManager {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver Error : " + e);
 		}
-		String databaseUrl = "jdbc:mysql://localhost:3306/webDB";
-		String databaseID = "root";
-		String databasePW = "";
 		try {
+			String databaseUrl = "jdbc:mysql://localhost:3306/webDB";
+			String databaseID = "root";
+			String databasePW = "";
 			return DriverManager.getConnection(databaseUrl, databaseID, databasePW);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
