@@ -1,13 +1,12 @@
 package org.nhnnext;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class BbsServlet extends HttpServlet {
 	@Override
@@ -20,18 +19,15 @@ public class BbsServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.setContentType("text/html");
-		PrintWriter writer = resp.getWriter();
+		HttpSession session = req.getSession();
+		String id = session.getAttribute("ID").toString();
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		BbsDAO dao = new BbsDAO();
-		dao.addArticle(title, content);
-		ArrayList<BbsArticle> bbsList = dao.showBoard();
-		for (BbsArticle bbsArticle : bbsList) {
-			writer.println(bbsArticle.getName() + " | " + bbsArticle.getTitle()
-					+ "|" + bbsArticle.getContents() + "<br>");
-		}
-		writer.close();
+		dao.addArticle(id, title, content);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/index.jsp");
+		rd.forward(req, resp);
 	}
 
 }

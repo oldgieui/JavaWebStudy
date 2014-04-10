@@ -25,8 +25,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		if (checkLogin(id, password)){
 			session.setAttribute("ID", id);
-			session.setAttribute("PASSWORD", password);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index2.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		}
 		else {

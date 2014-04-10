@@ -32,12 +32,12 @@ textarea{
 #login_button{
     float: right;
     margin-left: 3%;
-    margin-right: 3%;
+    margin-right: 10%;
 }
 
 .header{
     border-style: dashed;
-    width: 70%;
+    width: 100%;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 5%;
@@ -46,7 +46,7 @@ textarea{
 
 .container{
     border-style: dashed;
-    width: 70%;
+    width: 100%;
     height: auto;
     margin-left: 5%;
     margin-right: 5%;
@@ -56,7 +56,7 @@ textarea{
 
 footer{
     border-style: dashed;
-    width: 70%;
+    width: 100%;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 5%;
@@ -68,8 +68,8 @@ footer{
 .layout-left{
 /*    border-style: dashed;*/
     float: left;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    /*margin-top: 3px;
+    margin-bottom: 3px;*/
     width: 70%;
     height: 600px;
     background-color: rgba(99,99,99,0.6);
@@ -94,9 +94,9 @@ body{
 */
 /*    width: auto;*/
 /*    height: 600px;*/
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
     height: auto;
     border-color: #235043;
 /*    padding: 15px;*/

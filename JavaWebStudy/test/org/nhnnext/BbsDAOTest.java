@@ -9,7 +9,7 @@ public class BbsDAOTest {
 	@Test
 	public void addArticle() {
 		BbsDAO bbsDao = new BbsDAO();
-		bbsDao.addArticle("title", "contents");
+		bbsDao.addArticle("name", "title", "contents");
 		ArrayList<BbsArticle> bbsList = bbsDao.showBoard();
 		System.out.println(bbsList.size());
 	}

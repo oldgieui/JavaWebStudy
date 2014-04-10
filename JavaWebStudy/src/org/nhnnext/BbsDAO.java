@@ -14,12 +14,13 @@ public class BbsDAO {
 	ResultSet resultset;
 	String sql;
 
-	public boolean addArticle(String title, String content) {
+	public boolean addArticle(String name, String title, String content) {
+		
 		try {
 			connection = ConnectionManager.createConnection();
 			sql = "INSERT INTO WEBBOARD (name, title, content) VALUES (?, ?, ?)";
 			prepStatement = connection.prepareStatement(sql);
-			prepStatement.setString(1, "TEMP");
+			prepStatement.setString(1, name);
 			prepStatement.setString(2, title);
 			prepStatement.setString(3, content);
 			prepStatement.execute();
@@ -42,6 +43,7 @@ public class BbsDAO {
 	}
 
 	public boolean deleteArticle(int id) {
+		//id값을 기준으로 Article 삭제
 		try {
 			connection = ConnectionManager.createConnection();
 			sql = "DELETE FROM WEBBOARD WHERE ID = ?";
@@ -61,6 +63,7 @@ public class BbsDAO {
 	}
 
 	public BbsArticle findArticle(int id) {
+		//게시판 DB의 ID값을 기준으로 Article을 찾아 리턴함
 		try {
 			connection = ConnectionManager.createConnection();
 			sql = "SELECT * FROM WEBBOARD WHERE ID = ?";
@@ -86,7 +89,7 @@ public class BbsDAO {
 	}
 
 	public ArrayList<BbsArticle> showBoard() {
-
+		//게시판 DB에 보관되어 있는 모든 내용을 BbsArticle 객체에 담아 ArrayList에 넣어 리턴해줌 
 		try {
 			connection = ConnectionManager.createConnection();
 			sql = "SELECT * FROM WEBBOARD";
@@ -99,13 +102,19 @@ public class BbsDAO {
 						resultset.getString("CONTENT"));
 				articleList.add(bbs);
 			}
-			statement.close();
-			connection.close();
 			return articleList;
 		} catch (SQLException e) {
-			System.err.println("SQL Error : " + e);
+			System.err.println("showBoard SQL Error : " + e);
 		} catch (Exception e) {
-			System.err.println("Error : " + e);
+			System.err.println("showBoard Error : " + e);
+		} finally{
+			try {
+				resultset.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				System.err.println("showBoard finally Error : " + e);
+			}
 		}
 		return new ArrayList<BbsArticle>();
 	}
