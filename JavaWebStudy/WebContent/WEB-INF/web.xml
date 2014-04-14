@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-	<display-name>HelloWorld</display-name>
-
 	<welcome-file-list>
 		<!-- <welcome-file>loop.jsp</welcome-file> -->
 		<!-- <welcome-file>index.html</welcome-file> -->
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<servlet>
+		<servlet-name>Front</servlet-name>
+		<servlet-class>org.nhnnext.FrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Front</servlet-name>
+		<url-pattern>/front/</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>JavaWebStudy</servlet-name>
 		<servlet-class>org.nhnnext.JavaWebStudy</servlet-class>
@@ -20,7 +28,7 @@
 
 	<servlet>
 		<servlet-name>Login</servlet-name>
-		<servlet-class>org.nhnnext.LoginServlet</servlet-class>
+		<servlet-class>org.nhnnext.LoginController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -30,7 +38,7 @@
 
 	<servlet>
 		<servlet-name>Logout</servlet-name>
-		<servlet-class>org.nhnnext.LogoutServlet</servlet-class>
+		<servlet-class>org.nhnnext.LogoutController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -50,7 +58,7 @@
 
 	<servlet>
 		<servlet-name>BBS</servlet-name>
-		<servlet-class>org.nhnnext.BbsServlet</servlet-class>
+		<servlet-class>org.nhnnext.BbsController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

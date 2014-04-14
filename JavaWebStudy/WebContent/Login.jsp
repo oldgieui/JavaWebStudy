@@ -1,10 +1,9 @@
 <%@page import="org.nhnnext.*"%>
-<%@ page
-	import="java.io.IOException,
-javax.servlet.ServletException,
-javax.servlet.http.HttpServlet,
-javax.servlet.http.HttpServletRequest,
-javax.servlet.http.HttpServletResponse"%>
+<%@ page import="java.io.IOException, 
+				javax.servlet.ServletException, 
+				javax.servlet.http.HttpServlet, 
+				javax.servlet.http.HttpServletRequest, 
+				javax.servlet.http.HttpServletResponse"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -26,8 +25,8 @@ javax.servlet.http.HttpServletResponse"%>
 	</div>
 	<div class="container">
 		<%
-			String id = (String)session.getAttribute("id");
-			String password = (String)session.getAttribute("password");
+			String id = (String) session.getAttribute("id");
+			String password = (String) session.getAttribute("password");
 			UserDAO dao = new UserDAO();
 			out.println(dao.loginCheck(id, password));
 		%>

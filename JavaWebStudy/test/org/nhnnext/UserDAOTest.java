@@ -28,7 +28,7 @@ public class UserDAOTest {
 	public void addUser(){
 		UserDAO dao = new UserDAO();
 		dao.deleteUser("newman2", "goodman");
-		dao.addUser("newman2", "goodman", "newman2");
+		dao.addUser("newman2", "goodman", "newman2name");
 		assertTrue(dao.findUser("newman2"));
 	}
 	
