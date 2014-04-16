@@ -1,30 +1,18 @@
 package org.nhnnext;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-public class BbsDAO {
-	Connection connection;
-	Statement statement;
-	PreparedStatement prepStatement;
-	ResultSet resultset;
-	String sql;
-
+public class BbsDAO extends DAO {
 	public boolean addArticle(String name, String title, String content) {
-		
 		try {
-			connection = ConnectionManager.createConnection();
+			connection = getConnection();
 			sql = "INSERT INTO WEBBOARD (name, title, content) VALUES (?, ?, ?)";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, name);
 			prepStatement.setString(2, title);
 			prepStatement.setString(3, content);
 			prepStatement.execute();
-//			execute(), executeQuery(), executeUpdate() 등의 차이
 			prepStatement.close();
 			connection.close();
 			return true;
@@ -43,9 +31,9 @@ public class BbsDAO {
 	}
 
 	public boolean deleteArticle(int id) {
-		//id값을 기준으로 Article 삭제
+		// id값을 기준으로 Article 삭제
 		try {
-			connection = ConnectionManager.createConnection();
+			connection = getConnection();
 			sql = "DELETE FROM WEBBOARD WHERE ID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setInt(1, id);
@@ -63,16 +51,18 @@ public class BbsDAO {
 	}
 
 	public BbsArticle findArticle(int id) {
-		//게시판 DB의 ID값을 기준으로 Article을 찾아 리턴함
+		// 게시판 DB의 ID값을 기준으로 Article을 찾아 리턴함
 		try {
-			connection = ConnectionManager.createConnection();
+			connection = getConnection();
 			sql = "SELECT * FROM WEBBOARD WHERE ID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setInt(1, id);
 			resultset = prepStatement.executeQuery();
 			BbsArticle article;
 			if (resultset.next()) {
-				article = new BbsArticle(resultset.getString("NAME"), resultset.getString("TITLE"), resultset.getString("CONTENT"));
+				article = new BbsArticle(resultset.getString("NAME"),
+						resultset.getString("TITLE"),
+						resultset.getString("CONTENT"));
 			} else {
 				article = null;
 			}
@@ -85,13 +75,13 @@ public class BbsDAO {
 		} catch (Exception e) {
 			System.err.println("Error : " + e);
 		}
-		return null;		
+		return null;
 	}
 
 	public ArrayList<BbsArticle> showBoard() {
-		//게시판 DB에 보관되어 있는 모든 내용을 BbsArticle 객체에 담아 ArrayList에 넣어 리턴해줌 
+		// 게시판 DB에 보관되어 있는 모든 내용을 BbsArticle 객체에 담아 ArrayList에 넣어 리턴해줌
 		try {
-			connection = ConnectionManager.createConnection();
+			connection = getConnection();
 			sql = "SELECT * FROM WEBBOARD";
 			statement = connection.createStatement();
 			resultset = statement.executeQuery(sql);
@@ -107,7 +97,7 @@ public class BbsDAO {
 			System.err.println("showBoard SQL Error : " + e);
 		} catch (Exception e) {
 			System.err.println("showBoard Error : " + e);
-		} finally{
+		} finally {
 			try {
 				resultset.close();
 				statement.close();
