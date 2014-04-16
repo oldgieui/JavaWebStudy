@@ -11,62 +11,6 @@
 		<servlet-class>org.nhnnext.FrontController</servlet-class>
 	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>Front</servlet-name>
-		<url-pattern>/front/</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>JavaWebStudy</servlet-name>
-		<servlet-class>org.nhnnext.JavaWebStudy</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>JavaWebStudy</servlet-name>
-		<url-pattern>/hello/</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Login</servlet-name>
-		<servlet-class>org.nhnnext.LoginController</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Login</servlet-name>
-		<url-pattern>/login/</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Logout</servlet-name>
-		<servlet-class>org.nhnnext.LogoutController</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Logout</servlet-name>
-		<url-pattern>/logout/</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Clock</servlet-name>
-		<servlet-class>org.nhnnext.ClockServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Clock</servlet-name>
-		<url-pattern>/clock/</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>BBS</servlet-name>
-		<servlet-class>org.nhnnext.BbsController</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>BBS</servlet-name>
-		<url-pattern>/bbs/</url-pattern>
-	</servlet-mapping>
-
-
 </web-app>
 
 

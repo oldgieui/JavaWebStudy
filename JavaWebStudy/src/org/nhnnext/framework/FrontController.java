@@ -32,10 +32,9 @@ public class FrontController extends HttpServlet{
 			throws ServletException, IOException {
 		System.out.println("service start.");
 		String uri = req.getRequestURI();
+		uri = uri.split(".do", 1)[0];
 		System.out.println(uri);
-		
 		ControllerMap.getController(uri).service(req, resp);
-//		각 컨트롤러에 있는 RequestDispatcher~라인에서 NullPointerException 발생함. getServletContext()?
 	}
 	
 }
