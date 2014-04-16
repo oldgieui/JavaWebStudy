@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.framework;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

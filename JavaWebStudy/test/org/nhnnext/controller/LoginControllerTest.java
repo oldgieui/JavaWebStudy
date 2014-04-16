@@ -1,8 +1,9 @@
-package org.nhnnext;
+package org.nhnnext.controller;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.nhnnext.controller.LoginController;
 
 public class LoginControllerTest {
 

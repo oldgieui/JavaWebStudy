@@ -1,8 +1,10 @@
-package org.nhnnext;
+package org.nhnnext.dao;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.nhnnext.dao.BbsDAO;
+import org.nhnnext.dto.BbsArticle;
 
 public class BbsDAOTest {
 

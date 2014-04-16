@@ -3,6 +3,9 @@ package org.nhnnext;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.nhnnext.controller.BbsController;
+import org.nhnnext.controller.LoginController;
+import org.nhnnext.controller.LogoutController;
 import org.nhnnext.framework.FrontController;
 
 public class FrontControllerTest {

@@ -3,6 +3,9 @@ package org.nhnnext;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.nhnnext.controller.BbsController;
+import org.nhnnext.controller.LoginController;
+import org.nhnnext.controller.LogoutController;
 import org.nhnnext.framework.Controller;
 
 public class ControllerMap {

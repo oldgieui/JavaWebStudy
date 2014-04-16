@@ -1,18 +1,20 @@
-package org.nhnnext;
+package org.nhnnext.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.nhnnext.framework.ConnectionManager;
+
 
 
 public abstract class DAO {
-	Connection connection;
-	Statement statement;
-	PreparedStatement prepStatement;
-	ResultSet resultset;
-	String sql;
+	protected Connection connection;
+	protected Statement statement;
+	protected PreparedStatement prepStatement;
+	protected ResultSet resultset;
+	protected String sql;
 	
 	String dbUrl = "jdbc:mysql://localhost:3306/webDB";
 	String dbId = "root";

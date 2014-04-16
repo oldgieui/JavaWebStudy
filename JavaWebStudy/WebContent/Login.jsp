@@ -1,3 +1,4 @@
+<%@page import="org.nhnnext.dao.UserDAO"%>
 <%@page import="org.nhnnext.*"%>
 <%@ page import="java.io.IOException, 
 				javax.servlet.ServletException, 

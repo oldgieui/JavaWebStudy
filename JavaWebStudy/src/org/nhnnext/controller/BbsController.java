@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.controller;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.nhnnext.dao.BbsDAO;
 import org.nhnnext.framework.Controller;
 
 public class BbsController implements Controller{

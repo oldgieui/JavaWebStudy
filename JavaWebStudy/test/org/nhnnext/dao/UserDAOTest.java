@@ -1,8 +1,9 @@
-package org.nhnnext;
+package org.nhnnext.dao;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.nhnnext.dao.UserDAO;
 
 public class UserDAOTest {
 

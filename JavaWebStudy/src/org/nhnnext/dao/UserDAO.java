@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.dao;
 
 import java.sql.SQLException;
 

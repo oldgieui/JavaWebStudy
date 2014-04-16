@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.dto;
 
 public class BbsArticle {
 	private String name;

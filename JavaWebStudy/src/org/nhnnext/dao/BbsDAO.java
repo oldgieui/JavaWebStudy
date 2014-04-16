@@ -1,7 +1,9 @@
-package org.nhnnext;
+package org.nhnnext.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.nhnnext.dto.BbsArticle;
 
 public class BbsDAO extends DAO {
 	public boolean addArticle(String name, String title, String content) {
