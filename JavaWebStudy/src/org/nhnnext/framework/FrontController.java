@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.nhnnext.CmapInitializer;
 import org.nhnnext.ControllerMap;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
-	public FrontController(){
+	@Override
+	public void init() throws ServletException {
+		System.out.println("Map Initialize!! " + getServletContext().getRealPath(""));
+		CmapInitializer.mapInit();
 	}
 
 	@Override

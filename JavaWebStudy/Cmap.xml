@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ControllerMap>
+	<Controller uri="/login.do">org.nhnnext.controller.LoginController</Controller>
+	<Controller uri="/logout.do">org.nhnnext.controller.LogoutController</Controller>
+	<Controller uri="/bbs.do">org.nhnnext.controller.BbsController</Controller>
+</ControllerMap>

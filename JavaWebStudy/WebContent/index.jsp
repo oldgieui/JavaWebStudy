@@ -1,4 +1,5 @@
-<%@page import="org.nhnnext.BbsDAO"%>
+<%@page import="org.nhnnext.dto.BbsArticle"%>
+<%@page import="org.nhnnext.dao.BbsDAO"%>
 <%@page
 	import="javax.servlet.jsp.tagext.TryCatchFinally , java.util.ArrayList, org.nhnnext.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -56,19 +57,6 @@
 					}
 				%>
 			</div>
-
-
-
-			<!-- 			<form name="Clock" action="/clock/">
-				<center>
-					<i><input type="submit" value="What Time Is It Now?"></i>
-				</center>
-			</form>
-
-			<form name="timetable" action="timetable">
-				<a href="TimeTable.html"><input type="button"
-					value="show timetable"></a>
-			</form> -->
 
 		</div>
 		<div class="layout-right">

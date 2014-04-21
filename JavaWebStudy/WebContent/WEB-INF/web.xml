@@ -8,7 +8,8 @@
 
 	<servlet>
 		<servlet-name>Front</servlet-name>
-		<servlet-class>org.nhnnext.FrontController</servlet-class>
+		<servlet-class>org.nhnnext.framework.FrontController</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 </web-app>

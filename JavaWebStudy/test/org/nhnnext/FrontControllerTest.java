@@ -11,6 +11,7 @@ import org.nhnnext.framework.FrontController;
 public class FrontControllerTest {
 
 	FrontController ctrl = new FrontController();
+	
 	@Test
 	public void testControllerMap() {
 		assertTrue(ControllerMap.getController("/login.do").getClass().equals(new LoginController().getClass()));
