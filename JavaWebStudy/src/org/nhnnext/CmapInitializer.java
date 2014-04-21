@@ -5,6 +5,8 @@ import java.io.File;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.nhnnext.framework.CmapParser;
+
 public class CmapInitializer {
 	
 	//파일명을 지정하는 부분까지 분리하고 싶은데 그렇게 하면 파일명을 지정하는 메소드는 어디서 호출해야 하는가?

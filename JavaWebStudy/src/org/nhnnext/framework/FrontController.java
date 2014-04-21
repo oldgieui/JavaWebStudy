@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.nhnnext.CmapInitializer;
-import org.nhnnext.ControllerMap;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{

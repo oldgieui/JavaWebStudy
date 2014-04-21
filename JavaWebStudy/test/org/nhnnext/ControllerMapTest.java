@@ -3,6 +3,7 @@ package org.nhnnext;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+import org.nhnnext.framework.ControllerMap;
 
 public class ControllerMapTest {
 

@@ -1,10 +1,8 @@
-package org.nhnnext;
+package org.nhnnext.framework;
 
-import org.nhnnext.framework.Controller;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import org.nhnnext.ControllerMap;
 
 public class CmapParser extends DefaultHandler {
 
@@ -22,8 +20,8 @@ public class CmapParser extends DefaultHandler {
 			Attributes attributes) throws SAXException {
 		if ("Controller".equals(qName)) {
 			key = attributes.getValue(0);
+			System.out.println(key);
 		}
-		System.out.println(key);
 	}
 
 	@Override
