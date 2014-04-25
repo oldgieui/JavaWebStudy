@@ -12,6 +12,8 @@ import org.nhnnext.CmapInitializer;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
+	private static final long serialVersionUID = -7001096326843269526L;
+
 	@Override
 	public void init() throws ServletException {
 		System.out.println("Map Initialize!! " + getServletContext().getRealPath(""));

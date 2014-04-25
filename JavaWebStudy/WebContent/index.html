@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NEXT CAMPUS MAP</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="/src/stylesheets/Style.css">
+</head>
+<body>
+	<div id="header">
+		<div id="titleBar">
+			<img src="src/img/next_bi.png" id="logo">
+			<div id="signinButton" class="button">Sign in</div>
+			<!--
+              <div id="loginWindow">
+                  <div id="loginTitle">
+                      Sign In
+                  </div>
+                  <div id="loginWrap">
+                    <form name="login" action="/login.do" method="post">
+                        <div id="loginInputs">
+                            Username<br>
+                            <input type="text" name="id"><br>
+                            Password (Forgot Password)<br>
+                            <input type="password" name="password"><br>
+                        </div>
+                        <div id="loginButton" class="button">
+                            Sign in
+                        </div>
+				    </form>
+                  </div>
+              </div>
+-->
+		</div>
+	</div>
+	<div id="campusMap">
+		<div id="prompt1-1" class="prompt">
+			prompt<br> 1-1
+		</div>
+		<div id="prompt1-3" class="prompt">
+			prompt<br> 1-3
+		</div>
+		<div id="prompt2-4" class="prompt">
+			prompt<br> 2-4
+		</div>
+		<div id="prompt2-6" class="prompt">
+			prompt<br> 2-6
+		</div>
+		<div id="prompt3-7" class="prompt">
+			prompt<br> 3-7
+		</div>
+		<div id="prompt3-8" class="prompt">
+			prompt<br> 3-8
+		</div>
+		<div id="prompt3-9" class="prompt">
+			prompt<br> 3-9
+		</div>
+		<div id="prompt3-10" class="prompt">
+			prompt<br> 3-10
+		</div>
+		<div id="prompt4-11" class="prompt">
+			prompt<br> 4-11
+		</div>
+		<div id="prompt4-12" class="prompt">
+			prompt<br> 4-12
+		</div>
+		<div id="prompt4-14" class="prompt">
+			prompt<br> 4-14
+		</div>
+
+		<div id="link1-1" class="link">
+			link<br> 1-1
+		</div>
+		<div id="link2-3" class="link">
+			link<br> 2-3
+		</div>
+		<div id="linkS-5" class="link">
+			link<br> S-5
+		</div>
+		<div id="linkS-6" class="link">
+			link<br> S-6
+		</div>
+		<div id="linkS-7" class="link">
+			link<br> S-7
+		</div>
+		<div id="linkS-8" class="link">
+			link<br> S-8
+		</div>
+		<div id="link4-12" class="link">
+			link<br> 4-12
+		</div>
+		<div id="link4-13" class="link">
+			link<br> 4-13
+		</div>
+		<div id="link4-14" class="link">
+			link<br> 4-14
+		</div>
+	</div>
+
+	<!--
+      <img src="nextMap.png" id="nextMap" usemap="#nextMap.png" border="0">
+
+      <map name="nextMap.png" class="map">
+          <area shape="rect" coords="265,4,347,57" href="">
+          <area shape="rect" coords="442,63,525,116" href="">
+          <area shape="rect" coords="531,6,583,27" href="">
+          <area shape="rect" coords="531,36,583,56" href="">
+          <area shape="rect" coords="531,65,583,87" href="">
+          <area shape="rect" coords="532,96,584,115" href="">
+          <area shape="rect" coords="713,65,798,116" href="">
+          <area shape="rect" coords="919,63,972,116" href="">
+          <area shape="rect" coords="979,62,1032,116" href="">
+          <area shape="rect" coords="1158,65,1241,116" href="">
+          <area shape="rect" coords="1157,308,1240,358" href="">
+          <area shape="rect" coords="994,306,1032,358" href="">
+          <area shape="rect" coords="949,366,1031,415" href="">
+          <area shape="rect" coords="911,364,942,416" href="">
+          <area shape="rect" coords="873,380,904,416" href="">
+          <area shape="rect" coords="712,364,825,417" href="">
+          <area shape="rect" coords="353,304,437,359" href="">
+          <area shape="poly" coords="163,69,145,88,173,116,191,98" href="">
+          <area shape="poly" coords="222,306,193,337,212,356,241,328" href="">
+      </map> 
+-->
+	<script type="text/javascript">
+		
+
+		var loginWindow = document.createElement("div");
+		loginWindow.setAttribute("id", "loginWindow");
+
+		var loginTitle = document.createElement("div");
+		loginTitle.setAttribute("id", "loginTitle");
+		loginTitle.innerHTML = "Sign in";
+
+		var loginWrap = document.createElement("div");
+		loginWrap.setAttribute("id", "loginWrap");
+
+		var loginForm = document.createElement("form");
+		loginForm.setAttribute("name", "login");
+		loginForm.setAttribute("action", "/login.do");
+		loginForm.setAttribute("method", "post");
+
+		var loginInputs = document.createElement("div");
+		loginInputs.setAttribute("id", "loginInputs");
+
+		var inputID = document.createElement("input");
+		inputID.setAttribute("type", "text");
+		inputID.setAttribute("name", "id");
+
+		var inputPW = document.createElement("input");
+		inputPW.setAttribute("type", "password");
+		inputPW.setAttribute("name", "password");
+		
+		var loginButton = document.createElement("div");
+		loginButton.setAttribute("id", "loginButton");
+		loginButton.setAttribute("class", "button");
+		loginButton.innerHTML = "Sign in";
+
+		loginWindow.appendChild(loginTitle);
+		loginWindow.appendChild(loginWrap);
+
+		loginWrap.appendChild(loginForm);
+
+		loginInputs.appendChild(document.createTextNode("Username"));
+		loginInputs.appendChild(inputID);
+		loginInputs.appendChild(document.createTextNode("Password"));
+		loginInputs.appendChild(inputPW);
+
+		loginForm.appendChild(loginInputs);
+		loginForm.appendChild(loginButton);
+
+		var loginWindowFlag = false;
+
+		document.getElementById("signinButton").addEventListener("click",
+				function() {
+					showLoginWindow();
+				}, false);
+
+		function showLoginWindow() {
+			if (loginWindowFlag === false) {
+				loginWindowFlag = true;
+				document.getElementById("titleBar").appendChild(loginWindow);
+			} else {
+				loginWindowFlag = false;
+				document.getElementById("titleBar").removeChild(loginWindow);
+			}
+
+		}
+
+		document.getElementById("loginButton").addEventListener("click",
+				function(e) {
+					submitForm("login");
+				}, false);
+
+		function submitForm(formName) {
+			document.forms[formName].submit();
+		}
+	</script>
+</body>
+</html>
