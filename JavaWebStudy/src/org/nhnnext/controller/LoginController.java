@@ -16,7 +16,7 @@ public class LoginController implements Controller{
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
+//		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		resp.setContentType("text/html");
 		String id = req.getParameter("id");

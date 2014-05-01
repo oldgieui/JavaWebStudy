@@ -15,8 +15,7 @@ public class BbsDAO extends DAO {
 			prepStatement.setString(2, title);
 			prepStatement.setString(3, content);
 			prepStatement.execute();
-			prepStatement.close();
-			connection.close();
+			closeConnection();
 			return true;
 		} catch (SQLException e) {
 			System.err.println("SQL Error : " + e);
@@ -40,8 +39,7 @@ public class BbsDAO extends DAO {
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setInt(1, id);
 			prepStatement.execute();
-			prepStatement.close();
-			connection.close();
+			closeConnection();
 			return true;
 		} catch (SQLException e) {
 			System.err.println("SQL Error : " + e);
@@ -68,9 +66,7 @@ public class BbsDAO extends DAO {
 			} else {
 				article = null;
 			}
-			resultset.close();
-			prepStatement.close();
-			connection.close();
+			closeConnection();
 			return article;
 		} catch (SQLException e) {
 			System.err.println("findArticle SQL Error : " + e);
@@ -101,9 +97,7 @@ public class BbsDAO extends DAO {
 			System.err.println("showBoard Error : " + e);
 		} finally {
 			try {
-				resultset.close();
-				statement.close();
-				connection.close();
+				closeConnection();
 			} catch (SQLException e) {
 				System.err.println("showBoard finally Error : " + e);
 			}

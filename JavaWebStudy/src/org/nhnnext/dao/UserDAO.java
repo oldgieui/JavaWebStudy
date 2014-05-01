@@ -27,9 +27,7 @@ public class UserDAO extends DAO{
 			System.err.println("loginCheck Error : " + e);
 		} finally {
 			try {
-				resultset.close();
-				prepStatement.close();
-				connection.close();
+				closeConnection();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -59,9 +57,7 @@ public class UserDAO extends DAO{
 			System.err.println("findUser Error : " + e);
 		} finally {
 			try {
-				resultset.close();
-				prepStatement.close();
-				connection.close();
+				closeConnection();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -78,8 +74,7 @@ public class UserDAO extends DAO{
 			prepStatement.setString(2, encryptPassword(password));
 			prepStatement.setString(3, name);
 			prepStatement.executeUpdate();
-			prepStatement.close();
-			connection.close();
+			closeConnection();
 		} catch (SQLException e) {
 			System.err.println("addUser DB Error : " + e);
 		} catch (Exception e) {
@@ -95,8 +90,7 @@ public class UserDAO extends DAO{
 			prepStatement.setString(1, id);
 			prepStatement.setString(2, encryptPassword(password));
 			prepStatement.executeUpdate();
-			prepStatement.close();
-			connection.close();
+			closeConnection();
 		} catch (SQLException e) {
 			System.err.println("deleteUser DB Error : " + e);
 		} catch (Exception e) {

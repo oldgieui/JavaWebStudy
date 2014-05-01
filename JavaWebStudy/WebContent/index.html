@@ -10,26 +10,6 @@
 		<div id="titleBar">
 			<img src="src/img/next_bi.png" id="logo">
 			<div id="signinButton" class="button">Sign in</div>
-			<!--
-              <div id="loginWindow">
-                  <div id="loginTitle">
-                      Sign In
-                  </div>
-                  <div id="loginWrap">
-                    <form name="login" action="/login.do" method="post">
-                        <div id="loginInputs">
-                            Username<br>
-                            <input type="text" name="id"><br>
-                            Password (Forgot Password)<br>
-                            <input type="password" name="password"><br>
-                        </div>
-                        <div id="loginButton" class="button">
-                            Sign in
-                        </div>
-				    </form>
-                  </div>
-              </div>
--->
 		</div>
 	</div>
 	<div id="campusMap">
@@ -122,8 +102,6 @@
       </map> 
 -->
 	<script type="text/javascript">
-		
-
 		var loginWindow = document.createElement("div");
 		loginWindow.setAttribute("id", "loginWindow");
 
@@ -149,7 +127,7 @@
 		var inputPW = document.createElement("input");
 		inputPW.setAttribute("type", "password");
 		inputPW.setAttribute("name", "password");
-		
+
 		var loginButton = document.createElement("div");
 		loginButton.setAttribute("id", "loginButton");
 		loginButton.setAttribute("class", "button");
@@ -175,18 +153,29 @@
 					showLoginWindow();
 				}, false);
 
+		var titleBar = document.getElementById("titleBar");
+		
 		function showLoginWindow() {
 			if (loginWindowFlag === false) {
 				loginWindowFlag = true;
-				document.getElementById("titleBar").appendChild(loginWindow);
+				titleBar.appendChild(loginWindow);
 			} else {
 				loginWindowFlag = false;
-				document.getElementById("titleBar").removeChild(loginWindow);
+				titleBar.removeChild(loginWindow);
 			}
-
+		}
+		
+		var map = document.getElementById("campusMap");
+		map.addEventListener("click", function(){closeLoginWindow();}, false);
+		
+		function closeLoginWindow() {
+			if (loginWindowFlag === true) {
+				loginWindowFlag = false;
+				titleBar.removeChild(loginWindow);
+			}
 		}
 
-		document.getElementById("loginButton").addEventListener("click",
+		loginButton.addEventListener("click",
 				function(e) {
 					submitForm("login");
 				}, false);
