@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.nhnnext.CmapInitializer;
+import org.nhnnext.ConfigInitializer;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
@@ -17,7 +17,7 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
 		System.out.println("Map Initialize!! " + getServletContext().getRealPath(""));
-		CmapInitializer.mapInit();
+		ConfigInitializer.init();
 	}
 
 	@Override

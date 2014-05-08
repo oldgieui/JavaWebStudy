@@ -32,7 +32,6 @@ public class LoginController implements Controller{
 	}
 
 	private boolean checkLogin(String id, String password) {
-		UserDAO dao = new UserDAO();
-		return dao.loginCheck(id, password);
+		return UserDAO.loginCheck(id, password);
 	}
 }

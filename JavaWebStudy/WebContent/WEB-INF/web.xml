@@ -2,7 +2,7 @@
 <web-app>
 	<welcome-file-list>
 		<!-- <welcome-file>loop.jsp</welcome-file> -->
-		<welcome-file>index.html</welcome-file>
+		<!-- <welcome-file>index.html</welcome-file> -->
 		<!-- <welcome-file>index3.jsp</welcome-file> -->
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

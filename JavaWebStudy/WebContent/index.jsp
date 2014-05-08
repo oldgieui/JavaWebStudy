@@ -1,7 +1,4 @@
-<%@page import="org.nhnnext.dto.BbsArticle"%>
-<%@page import="org.nhnnext.dao.BbsDAO"%>
-<%@page
-	import="javax.servlet.jsp.tagext.TryCatchFinally , java.util.ArrayList, org.nhnnext.*"%>
+<%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,151 +6,257 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/myCSS.css" />
-
-<title>Local Webpage</title>
+<link rel="stylesheet" type="text/css" href="/src/stylesheets/Style.css">
+<title>NEXT CAMPUS MAP</title>
 </head>
 <body>
-	<div class="header">
-		<h1>
-			<a href="/index.jsp">로그인 페이지 테스트</a>
-		</h1>
-	</div>
-	<div class="container">
-		<div class="layout-left">
-			<%
-				if (session.getAttribute("ID") != null) {
-			%>
-			<div id="bbs_wrap">
-				<form name="bbs" action="/bbs.do" method="post">
-					<input type="text" id="bbstitle" name="title"
-						style="width: 100%; margin: 3px;"><br>
-					<textarea name="content"
-						style="width: 100%; height: 100%; margin: 3px"></textarea>
-					<input type="submit" value="submit" onclick="checkBbsValue();"><br>
-				</form>
-			</div>
-			<%
-				} 
-			%>
-			<div>
-				<%	
-				BbsDAO dao = new BbsDAO();
-					ArrayList<BbsArticle> bbsList = dao.showBoard();
-					for (BbsArticle bbsArticle : bbsList) {
-						StringBuffer buf = new StringBuffer();
-						buf.append(bbsArticle.getName());
-						buf.append(" | ");
-						buf.append(bbsArticle.getTitle());
-						buf.append(" | ");
-						buf.append(bbsArticle.getContents());
-				%>
-				<div>
-					<%
-						out.println(buf.toString());
-					%>
-				</div>
-				<%
-					}
-				%>
-			</div>
-
-		</div>
-		<div class="layout-right">
-			<div id="login_wrap">
-				<%
-					if (session.getAttribute("ID") == null) {
-				%>
-				<form name="login" action="/login.do" method="post">
-					<div id="login_inputs">
-						<input type="text" name="id" value="아이디" autofocus><br>
-						<input type="password" name="password" value=""><br>
-					</div>
-					<div id="login_button">
-						<input type="submit" value="Login" onclick="checkLoginValue();"><br>
-						Click here<br> to login.
-					</div>
-				</form>
-				<%
-				} else { 
-					out.println("Login Completed.<br>");
-					out.println(session.getAttribute("ID") + " 접속중<br>");
-					StringBuffer buf = new StringBuffer();
-					buf.append("<form name = 'logout' action = '/logout.do' method ='post'>");
-					buf.append("<input type='submit' value='로그아웃'>");
-					buf.append("</form><br>");
-					out.println(buf);
-				}
-				%>
-
-			</div>
+	<div id="header">
+		<div id="titleBar">
+			<img src="src/img/next_bi.png" id="logo">
+			<div id="signinButton" class="button">Sign in</div>
 		</div>
 	</div>
-	<footer>
-	<h2>footer 영역</h2>
-	</footer>
+	<div id="campusMap">
+		<div id="prompt1-1" class="prompt">
+			prompt<br> 1-1
+		</div>
+		<div id="prompt1-3" class="prompt">
+			prompt<br> 1-3
+		</div>
+		<div id="prompt2-4" class="prompt">
+			prompt<br> 2-4
+		</div>
+		<div id="prompt2-6" class="prompt">
+			prompt<br> 2-6
+		</div>
+		<div id="prompt3-7" class="prompt">
+			prompt<br> 3-7
+		</div>
+		<div id="prompt3-8" class="prompt">
+			prompt<br> 3-8
+		</div>
+		<div id="prompt3-9" class="prompt">
+			prompt<br> 3-9
+		</div>
+		<div id="prompt3-10" class="prompt">
+			prompt<br> 3-10
+		</div>
+		<div id="prompt4-11" class="prompt">
+			prompt<br> 4-11
+		</div>
+		<div id="prompt4-12" class="prompt">
+			prompt<br> 4-12
+		</div>
+		<div id="prompt4-14" class="prompt">
+			prompt<br> 4-14
+		</div>
+
+		<div id="link1-1" class="link">
+			link<br> 1-1
+		</div>
+		<div id="link2-3" class="link">
+			link<br> 2-3
+		</div>
+		<div id="linkS-5" class="link">
+			link<br> S-5
+		</div>
+		<div id="linkS-6" class="link">
+			link<br> S-6
+		</div>
+		<div id="linkS-7" class="link">
+			link<br> S-7
+		</div>
+		<div id="linkS-8" class="link">
+			link<br> S-8
+		</div>
+		<div id="link4-12" class="link">
+			link<br> 4-12
+		</div>
+		<div id="link4-13" class="link">
+			link<br> 4-13
+		</div>
+		<div id="link4-14" class="link">
+			link<br> 4-14
+		</div>
+	</div>
 
 	<script type="text/javascript">
-        
- 		window.addEventListener("load", function(){
- 		//아래 함수는 다른 콜백함수 안에 있어서 외부에서 접근이 안되. 재사용 관점으로 사용하려면 밖으로 빼.
- 		//그렇지 않고 이 콜백함수의 전용이라면 보통 _(언더스코어)로 private한 의미를 주는게 일반적임.
-			function randomColor(){
-				var colorValue = Math.floor((Math.random() * 1000) % 256);
-				console.log(colorValue);
-				return colorValue;
-			} 
- 		    //디버깅은 변수의 값을 확인함으로써 데이터의 전달이 잘 이뤄지는 본다.
- 		    //var elBody = document.querySelector('body');
- 		    //console.log(elBody);
- 		    //elBody.style.backgroudColor = ....
- 		    function _makeRandomColor () {
- 		    	"rgb("+randomColor() + "," +randomColor() + ","+ randomColor()+")"
- 		    }
- 		    
- 		    var _sRandomData = _makeRandomColor(); 
- 		    
- 		    elBody.style.backgroundColor = _sRandomData;
- 		    
-			//document.querySelector('body').style.backgroundColor= "rgb("+randomColor() + "," +randomColor() + ","+ randomColor()+")";
-			},
-	   false); 
- 		
- 		document.getElementById("login_button").addEventListener("click", function(e){submitter("login");} , false); 
- 		//document.getElementById("login_button").addEventListener("click", function(e){submitter("login");} , false); 
- 		
- 		//submitForm(동사+명사 )
-		function submitter(formName) {
+		var loginWindow = document.createElement("div");
+		loginWindow.setAttribute("id", "loginWindow");
+
+		var loginTitle = document.createElement("div");
+		loginTitle.setAttribute("id", "loginTitle");
+		loginTitle.innerHTML = "Sign in";
+
+		var loginWrap = document.createElement("div");
+		loginWrap.setAttribute("id", "loginWrap");
+
+		var loginForm = document.createElement("form");
+		loginForm.setAttribute("name", "login");
+		loginForm.setAttribute("action", "/login.do");
+		loginForm.setAttribute("method", "post");
+
+		var loginInputs = document.createElement("div");
+		loginInputs.setAttribute("id", "loginInputs");
+
+		var inputID = document.createElement("input");
+		inputID.setAttribute("type", "text");
+		inputID.setAttribute("name", "id");
+
+		var inputPW = document.createElement("input");
+		inputPW.setAttribute("type", "password");
+		inputPW.setAttribute("name", "password");
+
+		var loginButton = document.createElement("div");
+		loginButton.setAttribute("id", "loginButton");
+		loginButton.setAttribute("class", "button");
+		loginButton.innerHTML = "Sign in";
+
+		loginWindow.appendChild(loginTitle);
+		loginWindow.appendChild(loginWrap);
+
+		loginWrap.appendChild(loginForm);
+
+		loginInputs.appendChild(document.createTextNode("Username"));
+		loginInputs.appendChild(inputID);
+		loginInputs.appendChild(document.createTextNode("Password"));
+		loginInputs.appendChild(inputPW);
+
+		loginForm.appendChild(loginInputs);
+		loginForm.appendChild(loginButton);
+
+		var loginWindowFlag = false;
+
+		document.getElementById("signinButton").addEventListener("click",
+				function() {
+					showLoginWindow();
+				}, false);
+
+		var titleBar = document.getElementById("titleBar");
+
+		function showLoginWindow() {
+			if (loginWindowFlag === false) {
+				loginWindowFlag = true;
+				titleBar.appendChild(loginWindow);
+			} else {
+				loginWindowFlag = false;
+				titleBar.removeChild(loginWindow);
+			}
+		}
+
+		var map = document.getElementById("campusMap");
+
+		map.addEventListener("click", function() {
+			closeLoginWindow();
+		}, false);
+
+		function closeLoginWindow() {
+			if (loginWindowFlag === true) {
+				loginWindowFlag = false;
+				titleBar.removeChild(loginWindow);
+			}
+		}
+		loginButton.addEventListener("click", function(e) {
+			submitForm("login");
+		}, false);
+
+		var resvWindow = document.createElement("div");
+		resvWindow.setAttribute("id", "resvWindow");
+
+		var resvHeader = document.createElement("div");
+		resvHeader.setAttribute("id", "resvHeader");
+		resvHeader.innerHTML = '<div id="resvDate"> :: 오늘 날짜 :: </div><div id="resvInputWrap"><form name="reservation" action="/timetable.do" method="get">시작 : <input name="startTime" type="time">끝 : <input name="endTime" type="time"><input name="submitTime" type="submit" value="예약"></form></div>';
+		resvWindow.appendChild(resvHeader);
+
+		var resvContainer = document.createElement("div");
+		resvContainer.setAttribute("id", "resvContainer");
+		resvWindow.appendChild(resvContainer);
+
+		var resvTimeLine = document.createElement("div");
+		resvTimeLine.setAttribute("id", "resvTimeLine");
+		resvTimeLine.innerHTML = "<!--            좌측, 시간대별 표시 들어가는 라인-->";
+
+		var resvContentLine = document.createElement("div");
+		resvContentLine.setAttribute("id", "resvContentLine");
+		resvContentLine.innerHTML = "<!--            우측, 예약 내용 들어가는 라인-->";
+
+		var resvWindowFlag = false;
+
+		function showResvWindow(ele) {
+			if (resvWindowFlag === false) {
+				resvWindowFlag = true;
+//				resvWindow.style.left = getPosition(ele)[0];
+//				resvWindow.style.top = getPosition(ele)[1];
+								resvWindow.setAttribute("left", getPosition(ele)[0]);
+								resvWindow.setAttribute("top", getPosition(ele)[1]);
+				map.appendChild(resvWindow);
+				for (var i = 0; i < 24; i++) {
+					var border = document.createElement("div");
+					border.setAttribute("class", "border");
+
+					var hour = document.createElement("div");
+					hour.setAttribute("class", "hour");
+					if (i < 9)
+						hour.innerHTML = "0" + i + "~" + "0" + (i + 1);
+					else if (i === 9)
+						hour.innerHTML = "0" + i + "~" + (i + 1);
+					else
+						hour.innerHTML = i + "~" + (i + 1);
+
+					resvTimeLine.appendChild(border);
+					resvTimeLine.appendChild(hour);
+				}
+			} else {
+				resvWindowFlag = false;
+				map.removeChild(resvWindow);
+			}
+		}
+		var prompts = document.getElementsByClassName("prompt");
+		var links = document.getElementsByClassName("link");
+
+		for (var i = 0; i < prompts.length; i++) {
+			prompts[i].addEventListener("click", function() {
+				showResvWindow(prompts[i]);
+			}, false);
+		}
+
+		for (var j = 0; j < links.length; j++) {
+			links[j].addEventListener("click", function() {
+				showResvWindow(links[j]);
+			}, false);
+		}
+
+		function submitForm(formName) {
 			document.forms[formName].submit();
 		}
-
-		function checkBbsValue() {
-			// == 와 ===는 다르다.
-			if (document.bbs.title.value == "") {
-				alert("게시글 제목은 공란으로 할 수 없습니다.");
-				document.bbs.title.focus();
-				return;
+		function getPosition(ele) {
+			var x = 0;
+			var y = 0;
+			while (ele) {
+				x += ele.offsetLeft;
+				y += ele.offsetTop;
+				ele = ele.offsetParent;
 			}
-			if (document.bbs.content.value == "") {
-				alert("게시글 내용은 공란으로 할 수 없습니다.");
-				document.bbs.title.focus();
-				return;
-			}
+			return [ x, y ];
 		}
-		function checkLoginValue() {
-			if (document.login.id.value == "") {
-				alert("아이디를 입력해 주세요.");
-				document.login.id.focus();
-				return false;
-			}
-			if (document.login.password.value == "") {
-				alert("비밀번호를 입력해 주세요.");
-				document.login.password.focus();
-				return false;
-			}
 
+		for (var k = 0; k < 24; k++) {
+			var border = document.createElement("div");
+			border.setAttribute("class", "border");
+
+			var hour = document.createElement("div");
+			hour.setAttribute("class", "hour");
+			if (k < 9)
+				hour.innerHTML = "0" + k + "~" + "0" + (k + 1);
+			else if (k === 9)
+				hour.innerHTML = "0" + k + "~" + (k + 1);
+			else
+				hour.innerHTML = k + "~" + (k + 1);
+
+			resvTimeLine.appendChild(border);
+			resvTimeLine.appendChild(hour);
 		}
+
 	</script>
-
 </body>
 </html>

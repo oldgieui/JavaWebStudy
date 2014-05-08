@@ -14,7 +14,7 @@ body {
 
 }
 
-#header {
+#resvHeader {
     position: relative;
     left: 0px;
     right: 0px;
@@ -24,19 +24,19 @@ body {
     height: 10%;
 }
 
-#container{
+#resvContainer{
     position: relative;
     height: 90%;
     overflow-y : auto;
     overflow-x: hidden;
 }
 
-#timeLine{
+#resvTimeLine{
     float: left;
     width: 20%;
 }
 
-#contentLine {
+#resvContentLine {
     float: right;
     width: 80%;
 }

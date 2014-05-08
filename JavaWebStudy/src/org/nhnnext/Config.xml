@@ -4,4 +4,6 @@
 	<Controller uri="/logout.do">org.nhnnext.controller.LogoutController</Controller>
 	<Controller uri="/bbs.do">org.nhnnext.controller.BbsController</Controller>
 	<Controller uri="/timetable.do">org.nhnnext.controller.TimetableController</Controller>
+	<Database url ="jdbc:mysql://localhost:3306/webDB" id = "root" pw = "" />
+	
 </ControllerMap>

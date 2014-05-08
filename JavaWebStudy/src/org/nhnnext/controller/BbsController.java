@@ -22,8 +22,7 @@ public class BbsController implements Controller{
 //		req.setCharacterEncoding("UTF-8");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		BbsDAO dao = new BbsDAO();
-		dao.addArticle(id, title, content);
+		BbsDAO.addArticle(id, title, content);
 		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
 		rd.forward(req, resp);
 	}

@@ -6,11 +6,11 @@
 <link rel="stylesheet" type="text/css" href="../stylesheets/TimeTable.css">
 </head>
 <body>
-	<div id = "header">
-        <div id="todayDate">
+	<div id = "resvHeader">
+        <div id="resvDate">
             :: 오늘 날짜 ::
         </div>
-        <div id="inputWrap">
+        <div id="resvInputWrap">
         	<form name="reservation" action="/timetable.do" method="get">
                 시작 : <input name="startTime" type="time">
                 끝 : <input name="endTime" type="time">
@@ -18,18 +18,18 @@
         	</form>
         </div>
     </div>
-    <div id="container">
-        <div id="timeLine">
+    <div id="resvContainer">
+        <div id="resvTimeLine">
 <!--            좌측, 시간대별 표시 들어가는 라인-->
         </div>
-        <div id="contentLine">
+        <div id="resvContentLine">
 <!--            우측, 예약 내용 들어가는 라인-->
         </div>
     </div>
     
     
     <script type="text/javascript">
-        var timeLine = document.getElementById("timeLine");
+        var timeLine = document.getElementById("resvTimeLine");
         for (var i = 0; i < 24; i++) {
             var border = document.createElement("div");
             border.setAttribute("class", "border");

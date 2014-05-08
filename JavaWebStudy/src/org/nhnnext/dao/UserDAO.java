@@ -1,21 +1,27 @@
 package org.nhnnext.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UserDAO extends DAO{
 
-	public boolean loginCheck(String id, String password) {
+	public static boolean loginCheck(String id, String password) {
+		Connection connection = null;
+		PreparedStatement prepStatement = null;
+		ResultSet resultSet = null;
 		try {
 			connection = getConnection();
-			sql = "SELECT PASSWORD FROM USERDATA WHERE ID = ?";
+			String sql = "SELECT PASSWORD FROM USERDATA WHERE ID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, id);
-			resultset = prepStatement.executeQuery();
+			resultSet = prepStatement.executeQuery();
 			password = encryptPassword(password);
-			if (resultset.next()) {
-				if (password.equals(resultset.getString("PASSWORD"))) {
+			if (resultSet.next()) {
+				if (password.equals(resultSet.getString("PASSWORD"))) {
 					return true;
 				}
 			} else {
@@ -27,7 +33,9 @@ public class UserDAO extends DAO{
 			System.err.println("loginCheck Error : " + e);
 		} finally {
 			try {
-				closeConnection();
+				resultSet.close();
+				prepStatement.close();
+				connection.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -35,18 +43,21 @@ public class UserDAO extends DAO{
 		return false;
 	}
 
-	private String encryptPassword(String password) {
+	private static String encryptPassword(String password) {
 		return DigestUtils.md5Hex(password);
 	}
 
-	public boolean findUser(String id) {
+	public static boolean findUser(String id) {
+		Connection connection = null;
+		PreparedStatement prepStatement = null;
+		ResultSet resultSet = null;
 		try {
 			connection = getConnection();
-			sql = "SELECT ID FROM USERDATA WHERE ID = ?";
+			String sql = "SELECT ID FROM USERDATA WHERE ID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, id);
-			resultset = prepStatement.executeQuery();
-			if (resultset.next()) {
+			resultSet = prepStatement.executeQuery();
+			if (resultSet.next()) {
 				return true;
 			} else {
 				return false;
@@ -57,7 +68,9 @@ public class UserDAO extends DAO{
 			System.err.println("findUser Error : " + e);
 		} finally {
 			try {
-				closeConnection();
+				resultSet.close();
+				prepStatement.close();
+				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -65,16 +78,19 @@ public class UserDAO extends DAO{
 		return false;
 	}
 
-	public void addUser(String id, String password, String name) {
+	public static void addUser(String id, String password, String name) {
+		Connection connection = null;
+		PreparedStatement prepStatement = null;
 		try {
 			connection = getConnection();
-			sql = "INSERT INTO USERDATA (ID, PASSWORD, NAME) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO USERDATA (ID, PASSWORD, NAME) VALUES(?, ?, ?)";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, id);
 			prepStatement.setString(2, encryptPassword(password));
 			prepStatement.setString(3, name);
 			prepStatement.executeUpdate();
-			closeConnection();
+			prepStatement.close();
+			connection.close();
 		} catch (SQLException e) {
 			System.err.println("addUser DB Error : " + e);
 		} catch (Exception e) {
@@ -82,15 +98,18 @@ public class UserDAO extends DAO{
 		} 
 	}
 
-	public void deleteUser(String id, String password) {
+	public static void deleteUser(String id, String password) {
+		Connection connection = null;
+		PreparedStatement prepStatement = null;
 		try {
 			connection = getConnection();
-			sql = "DELETE FROM USERDATA WHERE ID = ? AND PASSWORD = ?";
+			String sql = "DELETE FROM USERDATA WHERE ID = ? AND PASSWORD = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, id);
 			prepStatement.setString(2, encryptPassword(password));
 			prepStatement.executeUpdate();
-			closeConnection();
+			prepStatement.close();
+			connection.close();
 		} catch (SQLException e) {
 			System.err.println("deleteUser DB Error : " + e);
 		} catch (Exception e) {

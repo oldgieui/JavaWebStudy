@@ -1,13 +1,16 @@
 package org.nhnnext.framework;
 
+import java.util.ArrayList;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class CmapParser extends DefaultHandler {
+public class ConfigParser extends DefaultHandler {
 
 	String key;
 	String value;
+	ArrayList<String> dbInfo = new ArrayList<String>();
 
 	@Override
 	public void startDocument() throws SAXException {
@@ -22,6 +25,11 @@ public class CmapParser extends DefaultHandler {
 			key = attributes.getValue(0);
 			System.out.println(key);
 		}
+		if ("Database".equals(qName)) {
+			dbInfo.add(attributes.getValue(0));
+			dbInfo.add(attributes.getValue(1));
+			dbInfo.add(attributes.getValue(2));
+		}
 	}
 
 	@Override
@@ -34,13 +42,15 @@ public class CmapParser extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		// xml에서 읽어온 정보를 사용해서 맞는 인스턴스를 생성해야 하는데 방법을 모르겠다. Class.forName()정도면 될 거라 막연히 생각했으나....
-		// (추가) -> newInstance()라는 메소드가 있는것이었다 으아 아아 아아아
 		try {
 			if ("Controller".equals(qName)) {
 				System.out.println(key + " : " + value);
 				Controller ctr = (Controller) Class.forName(value).newInstance();
 				ControllerMap.addController(key, ctr);
+			}
+			if ("Database".equals(qName)) {
+				System.out.println(dbInfo.get(0) + " " + dbInfo.get(1) + " " + dbInfo.get(2));
+				ConnectionManager.initDB(dbInfo.get(0), dbInfo.get(1), dbInfo.get(2));
 			}
 		} catch (InstantiationException e) {
 			e.printStackTrace();
