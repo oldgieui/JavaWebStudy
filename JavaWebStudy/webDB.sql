@@ -19,3 +19,12 @@ CREATE TABLE TIMETABLE (
 	endTime TIME,
 	submitTime TIMESTAMP
 );
+
+CREATE TABLE RESERVATION {
+	place VARCHAR(12),
+	startTime TIME,
+	endTime TIME,
+	submitTime TIMESTAMP
+};
+
+

@@ -1,16 +1,13 @@
 package org.nhnnext.framework;
 
-import java.util.ArrayList;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class ConfigParser extends DefaultHandler {
 
-	String key;
-	String value;
-	ArrayList<String> dbInfo = new ArrayList<String>();
+	String controllerInfo[] = new String[2];
+	String dbInfo[] = new String[3];
 
 	@Override
 	public void startDocument() throws SAXException {
@@ -22,35 +19,29 @@ public class ConfigParser extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		if ("Controller".equals(qName)) {
-			key = attributes.getValue(0);
-			System.out.println(key);
+			controllerInfo[0] = attributes.getValue(0);
+			controllerInfo[1] = attributes.getValue(1);
 		}
 		if ("Database".equals(qName)) {
-			dbInfo.add(attributes.getValue(0));
-			dbInfo.add(attributes.getValue(1));
-			dbInfo.add(attributes.getValue(2));
+			dbInfo[0] = attributes.getValue(0);
+			dbInfo[1] = attributes.getValue(1);
+			dbInfo[2] = attributes.getValue(2);
 		}
 	}
 
-	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
-		value = new String(ch, start, length);
-		System.out.println(value);
-	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		try {
 			if ("Controller".equals(qName)) {
-				System.out.println(key + " : " + value);
-				Controller ctr = (Controller) Class.forName(value).newInstance();
-				ControllerMap.addController(key, ctr);
+				System.out.println(controllerInfo[0] + " : " + controllerInfo[1]);
+				Controller ctr = (Controller) Class.forName(controllerInfo[1]).newInstance();
+				ControllerMap.addController(controllerInfo[0], ctr);
 			}
 			if ("Database".equals(qName)) {
-				System.out.println(dbInfo.get(0) + " " + dbInfo.get(1) + " " + dbInfo.get(2));
-				ConnectionManager.initDB(dbInfo.get(0), dbInfo.get(1), dbInfo.get(2));
+				System.out.println(dbInfo[0] + " " + dbInfo[1] + " " + dbInfo[2]);
+				ConnectionManager.initDB(dbInfo[0], dbInfo[1], dbInfo[2]);
 			}
 		} catch (InstantiationException e) {
 			e.printStackTrace();

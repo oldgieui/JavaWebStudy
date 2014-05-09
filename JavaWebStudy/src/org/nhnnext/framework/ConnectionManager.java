@@ -11,9 +11,9 @@ public class ConnectionManager {
 	static String databasePW;
 
 	public static void initDB(String db, String id, String pw) {
-		 databaseUrl = db;
-		 databaseID = id;
-		 databasePW = pw;
+		databaseUrl = db;
+		databaseID = id;
+		databasePW = pw;
 	}
 
 	public static Connection createConnection() {
