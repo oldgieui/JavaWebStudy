@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>welcome to world</title>
-<link rel="stylesheet" type="text/css" href="/newCSS.css" />
+<link rel="stylesheet" type="text/css" href="./src/stylesheets/newCSS.css" />
 </head>
 <body>
 	<div class="header">
@@ -15,7 +15,7 @@
 	<div class="container">
 		<div id="main_ui">
 			<div id="login_wrap">
-				<form name="login" action="/login/" method="post">
+				<form name="login" action="/login.do" method="post">
 					<div id="login_inputs">
 						<input id="input_box" type="text" name="id" value="아이디" autofocus><br>
 						<input id="input_box" type="password" name="password"

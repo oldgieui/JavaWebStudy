@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/myCSS.css" />
+<link rel="stylesheet" type="text/css" href="./src/stylesheets/myCSS.css" />
 
 <title>Local Webpage</title>
 </head>
@@ -38,8 +38,7 @@
 			%>
 			<div>
 				<%	
-				BbsDAO dao = new BbsDAO();
-					ArrayList<BbsArticle> bbsList = dao.showBoard();
+					ArrayList<BbsArticle> bbsList = BbsDAO.showBoard();
 					for (BbsArticle bbsArticle : bbsList) {
 						StringBuffer buf = new StringBuffer();
 						buf.append(bbsArticle.getName());

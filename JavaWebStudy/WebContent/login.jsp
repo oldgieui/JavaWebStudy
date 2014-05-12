@@ -16,7 +16,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>로그인 검증 페이지</title>
-<link rel="stylesheet" type="text/css" href="newCSS.css" />
+<link rel="stylesheet" type="text/css" href="./src/stylesheets/newCSS.css" />
 </head>
 <body>
 	<div class="header">
@@ -28,8 +28,7 @@
 		<%
 			String id = (String) session.getAttribute("id");
 			String password = (String) session.getAttribute("password");
-			UserDAO dao = new UserDAO();
-			out.println(dao.loginCheck(id, password));
+			out.println(UserDAO.loginCheck(id, password));
 		%>
 	</div>
 </body>

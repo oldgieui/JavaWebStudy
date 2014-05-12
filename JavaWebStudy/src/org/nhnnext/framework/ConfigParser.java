@@ -29,18 +29,20 @@ public class ConfigParser extends DefaultHandler {
 		}
 	}
 
-
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		try {
 			if ("Controller".equals(qName)) {
-				System.out.println(controllerInfo[0] + " : " + controllerInfo[1]);
-				Controller ctr = (Controller) Class.forName(controllerInfo[1]).newInstance();
+				System.out.println(controllerInfo[0] + " : "
+						+ controllerInfo[1]);
+				Controller ctr = (Controller) Class.forName(controllerInfo[1])
+						.newInstance();
 				ControllerMap.addController(controllerInfo[0], ctr);
 			}
 			if ("Database".equals(qName)) {
-				System.out.println(dbInfo[0] + " " + dbInfo[1] + " " + dbInfo[2]);
+				System.out.println(dbInfo[0] + " " + dbInfo[1] + " "
+						+ dbInfo[2]);
 				ConnectionManager.initDB(dbInfo[0], dbInfo[1], dbInfo[2]);
 			}
 		} catch (InstantiationException e) {

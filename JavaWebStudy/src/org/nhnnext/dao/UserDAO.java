@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-public class UserDAO extends DAO{
+public class UserDAO extends DAO {
 
 	public static boolean loginCheck(String id, String password) {
 		Connection connection = null;
@@ -30,7 +30,8 @@ public class UserDAO extends DAO{
 		} catch (SQLException e) {
 			System.err.println("loginCheck DB Error : " + e.getMessage());
 		} catch (Exception e) {
-			System.err.println("loginCheck Error : " + e);
+			System.err
+					.println("loginCheck Error : " + e + " : " + e.getMessage());
 		} finally {
 			try {
 				resultSet.close();
@@ -95,7 +96,7 @@ public class UserDAO extends DAO{
 			System.err.println("addUser DB Error : " + e);
 		} catch (Exception e) {
 			System.err.println("addUser Error : " + e);
-		} 
+		}
 	}
 
 	public static void deleteUser(String id, String password) {
