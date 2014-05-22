@@ -9,7 +9,8 @@ public class ControllerMapTest {
 
 	@Test
 	public void testMap() {
-		ConfigInitializer.init();
+		ControllerInitializer ci = new ControllerInitializer();
+		ci.init();
 		System.out.println(ControllerMap.getController("/login.do"));
 		System.out.println(ControllerMap.getController("/logout.do"));
 		System.out.println(ControllerMap.getController("/bbs.do"));

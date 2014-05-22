@@ -1,12 +1,11 @@
 <%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/src/stylesheets/Style.css">
-<title>NEXT CAMPUS MAP</title>
+<title>GetThatROOM :: CAMPUS MAP ::</title>
 </head>
 <body>
 	<div id="filter"></div>
@@ -20,85 +19,33 @@
 					<div id="loginWrap">
 						<form name="login" action="/login.do" method="post">
 							<div id="loginInputs">
-								Username<input type="text" name="id"> Password<input
-									type="password" name="password">
+								ID<br><input type="text" name="id"><br> 
+								Password <br><input type="password" name="password">
 							</div>
 							<div id="loginButton" class="button">Sign in</div>
 						</form>
+					<div><a href="../src/pages/findAccount.html">(Forgot password?)</a> <a href="../src/pages/signUp.html">Sign Up?</a></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="campusMap">
-			<div id="resvWindow">
+		<div id="resvWindow">
 				<div id="resvHeader">
-					<div id="resvDate">:: 오늘 날짜 ::</div>
+					<div id="resvTitle"></div>
 					<div id="resvInputWrap">
 						<form name="reservation" action="/timetable.do" method="get">
-							시작 : <input name="startTime" type="time"> 끝 : <input
-								name="endTime" type="time"> <input name="submitTime"
-								type="submit" value="예약">
+							<input name="date" type="date">
+                            <input name="startTime" type="time"> 부터
+                            <input	name="endTime" type="time"> 까지
+							<input type="submit" value="예약">
 						</form>
 					</div>
 				</div>
 				<div id="resvContainer">
-					<div id="resvTimeLine">
-						<!--            좌측, 시간대별 표시 들어가는 라인-->
-						<div class="border"></div>
-						<div class="hour">00~01</div>
-						<div class="border"></div>
-						<div class="hour">01~02</div>
-						<div class="border"></div>
-						<div class="hour">02~03</div>
-						<div class="border"></div>
-						<div class="hour">03~04</div>
-						<div class="border"></div>
-						<div class="hour">04~05</div>
-						<div class="border"></div>
-						<div class="hour">05~06</div>
-						<div class="border"></div>
-						<div class="hour">06~07</div>
-						<div class="border"></div>
-						<div class="hour">07~08</div>
-						<div class="border"></div>
-						<div class="hour">08~09</div>
-						<div class="border"></div>
-						<div class="hour">09~10</div>
-						<div class="border"></div>
-						<div class="hour">10~11</div>
-						<div class="border"></div>
-						<div class="hour">11~12</div>
-						<div class="border"></div>
-						<div class="hour">12~13</div>
-						<div class="border"></div>
-						<div class="hour">13~14</div>
-						<div class="border"></div>
-						<div class="hour">14~15</div>
-						<div class="border"></div>
-						<div class="hour">15~16</div>
-						<div class="border"></div>
-						<div class="hour">16~17</div>
-						<div class="border"></div>
-						<div class="hour">17~18</div>
-						<div class="border"></div>
-						<div class="hour">18~19</div>
-						<div class="border"></div>
-						<div class="hour">19~20</div>
-						<div class="border"></div>
-						<div class="hour">20~21</div>
-						<div class="border"></div>
-						<div class="hour">21~22</div>
-						<div class="border"></div>
-						<div class="hour">22~23</div>
-						<div class="border"></div>
-						<div class="hour">23~24</div>
-					</div>
-					<div id="resvContentLine">
-						<!--            우측, 예약 내용 들어가는 라인-->
-					</div>
+					
 				</div>
 			</div>
-
+		<div id="campusMap">
 			<div id="prompt1-1" class="prompt">
 				prompt<br> 1-1
 			</div>
@@ -171,6 +118,7 @@
 		var loginWindow = document.getElementById("loginWindow");
 		var resvWindow = document.getElementById("resvWindow");
 		var resvTimeLine = document.getElementById("resvTimeLine");
+		var resvTitle = document.getElementById("resvTitle");
 		var loginWindowFlag = false;
 		var resvWindowFlag = false;
         
@@ -179,6 +127,7 @@
 			if (e.target.id === "signinButton") {
 				showLoginWindow(); 
 			} else if (e.target.className === "prompt" || e.target.className === "link") {
+				resvTitle.innerHTML = e.target.id;
 				showResvWindow();
 			} else if (e.target.id === "loginButton") {
 				submitForm("login");

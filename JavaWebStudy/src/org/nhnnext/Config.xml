@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ControllerMap>
-	<Controller uri="/login.do" class="org.nhnnext.controller.LoginController" />
-	<Controller uri="/logout.do" class="org.nhnnext.controller.LogoutController" />
-	<Controller uri="/bbs.do" class="org.nhnnext.controller.BbsController" />
-	<Controller uri="/timetable.do" class="org.nhnnext.controller.TimetableController" />
-	<Database url="jdbc:mysql://localhost:3306/webDB" id="root" pw="" />
-
-</ControllerMap>

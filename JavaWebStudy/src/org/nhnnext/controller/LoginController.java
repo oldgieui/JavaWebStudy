@@ -16,15 +16,15 @@ public class LoginController implements Controller{
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-//		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		resp.setContentType("text/html");
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
 		if (checkLogin(id, password)){
 			session.setAttribute("ID", id);
-			RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-			rd.forward(req, resp);
+//			RequestDispatcher rd = req.getRequestDispatcher("./");
+//			rd.forward(req, resp);
+			resp.sendRedirect("/");
 		}
 		else {
 			System.err.println("Login error");
@@ -32,6 +32,6 @@ public class LoginController implements Controller{
 	}
 
 	private boolean checkLogin(String id, String password) {
-		return UserDAO.loginCheck(id, password);
+		return UserDAO.getInstance().loginCheck(id, password);
 	}
 }

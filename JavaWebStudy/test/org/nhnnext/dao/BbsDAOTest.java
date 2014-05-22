@@ -10,22 +10,22 @@ public class BbsDAOTest {
 
 	@Test
 	public void addArticle() {
-		BbsDAO.addArticle("name", "title", "contents");
-		ArrayList<BbsArticle> bbsList = BbsDAO.showBoard();
+		BbsDAO.getInstance().addArticle("oldgieui", "title", "contents");
+		ArrayList<BbsArticle> bbsList = BbsDAO.getInstance().showBoard();
 		System.out.println(bbsList.size());
 	}
 	
 	@Test
 	public void deleteArticle() {
-		BbsDAO.deleteArticle("name");
-		ArrayList<BbsArticle> bbsList = BbsDAO.showBoard();
+		BbsDAO.getInstance().deleteArticle("oldgieui");
+		ArrayList<BbsArticle> bbsList = BbsDAO.getInstance().showBoard();
 		System.out.println(bbsList.size());
 		//db에 없는 자료를 삭제하려고 하면 false가 뜨게 하고 싶은데....
 	}
 	
 	@Test
 	public void findArticle(){
-		BbsDAO.findArticle(1);
+		BbsDAO.getInstance().findArticle(1);
 	}
 	
 //	@Test

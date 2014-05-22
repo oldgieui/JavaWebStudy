@@ -11,12 +11,23 @@ import org.nhnnext.dto.BbsArticle;
 
 //동일 인스턴스에서도 각 스레드에서 메소드를 사용할 때 참조하는 주소가 다르므로 connection 등을 로컬로 사용해야 추가적인 인스턴스 생성을 방지할 수 있다 
 public class BbsDAO extends DAO {
-	public static boolean addArticle(String name, String title, String content) {
+	private BbsDAO() {
+	}
+	
+	private static BbsDAO dao = null;
+	public static BbsDAO getInstance(){
+		if (dao == null) {
+			dao = new BbsDAO();
+		}
+		return dao;
+	}
+	
+	public boolean addArticle(String name, String title, String content) {
 		Connection connection;
 		PreparedStatement prepStatement;
 		try {
 			connection = getConnection();
-			String sql = "INSERT INTO WEBBOARD (name, title, content) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO WEBBOARD (USER_USERID, title, content) VALUES (?, ?, ?)";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, name);
 			prepStatement.setString(2, title);
@@ -39,13 +50,13 @@ public class BbsDAO extends DAO {
 	// return false;
 	// }
 
-	public static boolean deleteArticle(String name) {
+	public boolean deleteArticle(String name) {
 		// id값을 기준으로 Article 삭제
 		Connection connection;
 		PreparedStatement prepStatement;
 		try {
 			connection = getConnection();
-			String sql = "DELETE FROM WEBBOARD WHERE name = ?";
+			String sql = "DELETE FROM WEBBOARD WHERE USER_USERID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setString(1, name);
 			prepStatement.execute();
@@ -61,20 +72,20 @@ public class BbsDAO extends DAO {
 		return false;
 	}
 
-	public static BbsArticle findArticle(int id) {
+	public BbsArticle findArticle(int id) {
 		// 게시판 DB의 ID값을 기준으로 Article을 찾아 리턴함
 		Connection connection;
 		PreparedStatement prepStatement;
 		ResultSet resultSet;
 		try {
 			connection = getConnection();
-			String sql = "SELECT * FROM WEBBOARD WHERE NAME = ?";
+			String sql = "SELECT * FROM WEBBOARD WHERE USER_USERID = ?";
 			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setInt(1, id);
 			resultSet = prepStatement.executeQuery();
 			BbsArticle article;
 			if (resultSet.next()) {
-				article = new BbsArticle(resultSet.getString("NAME"),
+				article = new BbsArticle(resultSet.getString("USER_USERID"),
 						resultSet.getString("TITLE"),
 						resultSet.getString("CONTENT"));
 			} else {
@@ -92,7 +103,7 @@ public class BbsDAO extends DAO {
 		return null;
 	}
 
-	public static ArrayList<BbsArticle> showBoard() {
+	public ArrayList<BbsArticle> showBoard() {
 		// 게시판 DB에 보관되어 있는 모든 내용을 BbsArticle 객체에 담아 ArrayList에 넣어 리턴해줌
 		Connection connection = null;
 		Statement statement = null;
@@ -104,7 +115,7 @@ public class BbsDAO extends DAO {
 			resultSet = statement.executeQuery(sql);
 			ArrayList<BbsArticle> articleList = new ArrayList<BbsArticle>();
 			while (resultSet.next()) {
-				BbsArticle bbs = new BbsArticle(resultSet.getString("NAME"),
+				BbsArticle bbs = new BbsArticle(resultSet.getString("USER_USERID"),
 						resultSet.getString("TITLE"),
 						resultSet.getString("CONTENT"));
 				articleList.add(bbs);

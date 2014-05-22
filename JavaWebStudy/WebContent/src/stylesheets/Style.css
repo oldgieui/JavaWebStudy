@@ -102,16 +102,24 @@ body {
 }
 
 #loginInputs {
-	margin-top: 10%;
+	margin-top: 5%;
+	width:196px;
+	float:left;
 }
 
 #loginInputs input {
 	width: 80%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 #loginButton {
 	margin: 0px;
+	float:right;
+}
+
+#loginWrap #loginButton{
+	margin-top:5%;
+	height: 85px;
 }
 
 #campusMap {
@@ -127,8 +135,10 @@ body {
 	position: absolute;
 	display: none; 
 	z-index : 2;
-	width: 400px;
-	height: 550px;
+	left : 298px;
+	top: 60px;
+	width: 650px;
+	height: 450px;
 	margin: 0;
 	background-color: white;
 	border-color: black;
@@ -143,12 +153,12 @@ body {
 	top: 0px;
 	background-color: skyblue;
 	text-align: center;
-	height: 10%;
+	height: 15%;
 }
 
 #resvContainer {
 	position: relative;
-	height: 90%;
+	height: 85%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -175,7 +185,7 @@ body {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	height: 30px;
-	width: 400px;
+	width: 100%;
 }
 
 .prompt {
@@ -282,7 +292,7 @@ body {
 	height: 26px;
 }
 
-#linkS-5,#linkS-6,#linkS-7, #linkS-8 {
+#linkS-5, #linkS-6, #linkS-7, #linkS-8 {
 	left: 530px;
 	width: 55px;
 	height: 26px;

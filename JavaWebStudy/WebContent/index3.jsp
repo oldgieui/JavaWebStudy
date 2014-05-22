@@ -38,7 +38,7 @@
 			%>
 			<div>
 				<%	
-					ArrayList<BbsArticle> bbsList = BbsDAO.showBoard();
+					ArrayList<BbsArticle> bbsList = BbsDAO.getInstance().showBoard();
 					for (BbsArticle bbsArticle : bbsList) {
 						StringBuffer buf = new StringBuffer();
 						buf.append(bbsArticle.getName());

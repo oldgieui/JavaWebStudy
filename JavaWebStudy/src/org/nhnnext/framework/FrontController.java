@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.nhnnext.ConfigInitializer;
+import org.nhnnext.ControllerInitializer;
+import org.nhnnext.DBConfiguration;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet{
@@ -17,7 +18,12 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
 		System.out.println("Map Initialize!! " + getServletContext().getRealPath(""));
-		ConfigInitializer.init();
+		ControllerInitializer ci = new ControllerInitializer();
+		ci.init();
+		DBConfiguration dbc = new DBConfiguration();
+		dbc.init();
+//		ControllerConfiguration cc = new ControllerConfiguration();
+//		cc.init();
 	}
 
 	@Override
@@ -36,6 +42,7 @@ public class FrontController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		System.out.println("service start.");
 		String uri = req.getRequestURI();
 		uri = uri.split(".do", 1)[0];

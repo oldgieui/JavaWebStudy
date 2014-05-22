@@ -4,15 +4,14 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class ConfigParser extends DefaultHandler {
+public class XmlParser extends DefaultHandler {
 
 	String controllerInfo[] = new String[2];
-	String dbInfo[] = new String[3];
 
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
-		System.out.println("start");
+		System.out.println("XML parsing start");
 	}
 
 	@Override
@@ -21,11 +20,6 @@ public class ConfigParser extends DefaultHandler {
 		if ("Controller".equals(qName)) {
 			controllerInfo[0] = attributes.getValue(0);
 			controllerInfo[1] = attributes.getValue(1);
-		}
-		if ("Database".equals(qName)) {
-			dbInfo[0] = attributes.getValue(0);
-			dbInfo[1] = attributes.getValue(1);
-			dbInfo[2] = attributes.getValue(2);
 		}
 	}
 
@@ -39,11 +33,6 @@ public class ConfigParser extends DefaultHandler {
 				Controller ctr = (Controller) Class.forName(controllerInfo[1])
 						.newInstance();
 				ControllerMap.addController(controllerInfo[0], ctr);
-			}
-			if ("Database".equals(qName)) {
-				System.out.println(dbInfo[0] + " " + dbInfo[1] + " "
-						+ dbInfo[2]);
-				ConnectionManager.initDB(dbInfo[0], dbInfo[1], dbInfo[2]);
 			}
 		} catch (InstantiationException e) {
 			e.printStackTrace();
