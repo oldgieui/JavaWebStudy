@@ -33,8 +33,5 @@ public abstract class DAO {
 		}
 	}
 	
-	protected void releaseResource(PreparedStatement pstmt, Connection conn) {
-		releaseResource(null, null, pstmt, conn);
-	}
 	
 }

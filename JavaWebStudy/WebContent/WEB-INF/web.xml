@@ -10,9 +10,13 @@
 	<servlet>
 		<servlet-name>Front</servlet-name>
 		<servlet-class>org.nhnnext.framework.FrontController</servlet-class>
-		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
+	<servlet>
+		<servlet-name>ServerInit</servlet-name>
+		<servlet-class>org.nhnnext.initializer.ServerInitializer</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
 
 </web-app>
 

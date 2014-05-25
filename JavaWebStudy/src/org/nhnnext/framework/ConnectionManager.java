@@ -16,7 +16,7 @@ public class ConnectionManager {
 
 	// test case로 작동 확인을 빠르게 하기 위해서 넣어둔 값임. 실제 서버로 작동할 때는 null로 초기화해도 됨.
 
-	public void initDB(String cls, String db, String id, String pw) {
+	public void init(String cls, String db, String id, String pw) {
 		driverClassName = cls;
 		databaseUrl = db;
 		databaseID = id;
@@ -32,9 +32,10 @@ public class ConnectionManager {
 			System.out.println("Driver Error : " + e);
 		}
 		try {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 10; i++) {
 				connectionPool.push(DriverManager.getConnection(databaseUrl,
 						databaseID, databasePW));
+				System.out.println("conn + 1");
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -45,8 +46,16 @@ public class ConnectionManager {
 		boolean isPoolEmpty = connectionPool.empty();
 		while (isPoolEmpty) {
 			isPoolEmpty = connectionPool.empty();
+			System.out.println("connectionPool is empty.... waiting...");
 		}
+		System.out.println("conn size :" + connectionPool.size());
+		
 		return connectionPool.pop();
+	}
+	
+	public static void returnConnection(Connection conn){
+		System.out.println("conn size :" + connectionPool.size());
+		connectionPool.push(conn);
 	}
 
 	public void changeDB(String db) {

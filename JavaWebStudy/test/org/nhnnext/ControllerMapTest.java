@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 import org.nhnnext.framework.ControllerMap;
+import org.nhnnext.initializer.ControllerInitializer;
 
 public class ControllerMapTest {
 

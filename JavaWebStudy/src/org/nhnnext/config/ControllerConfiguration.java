@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.config;
 
 import org.nhnnext.framework.Controller;
 import org.nhnnext.framework.ControllerMap;

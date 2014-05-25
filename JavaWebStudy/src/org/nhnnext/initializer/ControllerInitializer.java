@@ -1,4 +1,4 @@
-package org.nhnnext;
+package org.nhnnext.initializer;
 
 import java.io.File;
 import java.net.URL;
@@ -20,7 +20,7 @@ public class ControllerInitializer {
 			String path = location.getPath();
 			String filePath = path.substring( 0, path.lastIndexOf('/')+1);
 			
-			File xmlFile = new File(filePath+"ControllerConfig.xml");
+			File xmlFile = new File(filePath+"ControllerInfo.xml");
 			parser.parse(xmlFile, new XmlParser());
 
 		} catch (Exception e) {
