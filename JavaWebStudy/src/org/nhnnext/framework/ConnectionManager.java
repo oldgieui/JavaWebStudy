@@ -13,7 +13,6 @@ public class ConnectionManager {
 	private String databaseUrl = "jdbc:mysql://localhost:3306/ResvSystem";
 	private String databaseID = "root";
 	private String databasePW = "";
-
 	// test case로 작동 확인을 빠르게 하기 위해서 넣어둔 값임. 실제 서버로 작동할 때는 null로 초기화해도 됨.
 
 	public void init(String cls, String db, String id, String pw) {
@@ -21,10 +20,10 @@ public class ConnectionManager {
 		databaseUrl = db;
 		databaseID = id;
 		databasePW = pw;
-		createConnectionPool();
+		addConnections();
 	}
 
-	private void createConnectionPool() {
+	private void addConnections() {
 		try {
 			Class.forName(driverClassName);
 			// drivaerClassName에 주어진 값이 없어서 test case에서 문제 발생함
@@ -32,37 +31,23 @@ public class ConnectionManager {
 			System.out.println("Driver Error : " + e);
 		}
 		try {
-			int cpSize = 0;
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i < 5; i++) {
 				connectionPool.push(DriverManager.getConnection(databaseUrl,
 						databaseID, databasePW));
-				++cpSize;
 			}
-			System.out.println("connection Pool Size : " + cpSize);
+			System.out.println("connection Pool Size : " + connectionPool.size());
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
-	public static Connection getConnection() {
-		boolean isPoolEmpty = connectionPool.empty();
-		while (isPoolEmpty) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			isPoolEmpty = connectionPool.empty();
-			System.out.println("connectionPool is empty.... waiting...");
-		}
-		Connection conn = connectionPool.pop();
-		
+	public static Connection getConnection() {		
 		if (connectionPool.size() < 2) {
-			ConnectionManager cm = new ConnectionManager();
-			cm.createConnectionPool();
+			new ConnectionManager().addConnections();
 			System.out.println("added more connections...");
 		}
-		
+
+		Connection conn = connectionPool.pop();
 		System.out.println("connection popped : " + connectionPool.size() + " remains");
 		return conn;
 	}
@@ -70,6 +55,26 @@ public class ConnectionManager {
 	public static void returnConnection(Connection conn) {
 		connectionPool.push(conn);
 		System.out.println("connection pushed : " + connectionPool.size() + " remains");
+		if (connectionPool.size() > 10) {
+			new ConnectionManager().optimizeConnectionPool();
+		}
+	}
+	
+	private void optimizeConnectionPool() {
+		try {
+			int closed = 0;
+			for (int i = 0; i < connectionPool.size(); i++) {
+				Connection conn = connectionPool.get(i);
+				if (conn.isValid(0) == false) {
+					conn.close();
+					closed++;
+				}
+			}
+			System.out.println(closed + " connections closed");
+		} catch (SQLException e) {
+			System.err.println("optimizeCP ERROR : " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public void changeDB(String db) {
