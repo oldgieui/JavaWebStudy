@@ -32,30 +32,44 @@ public class ConnectionManager {
 			System.out.println("Driver Error : " + e);
 		}
 		try {
-			for (int i = 0; i < 10; i++) {
+			int cpSize = 0;
+			for (int i = 0; i < 1; i++) {
 				connectionPool.push(DriverManager.getConnection(databaseUrl,
 						databaseID, databasePW));
-				System.out.println("conn + 1");
+				++cpSize;
 			}
+			System.out.println("connection Pool Size : " + cpSize);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
 	public static Connection getConnection() {
 		boolean isPoolEmpty = connectionPool.empty();
 		while (isPoolEmpty) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			isPoolEmpty = connectionPool.empty();
 			System.out.println("connectionPool is empty.... waiting...");
 		}
-		System.out.println("conn size :" + connectionPool.size());
+		Connection conn = connectionPool.pop();
 		
-		return connectionPool.pop();
+		if (connectionPool.size() < 2) {
+			ConnectionManager cm = new ConnectionManager();
+			cm.createConnectionPool();
+			System.out.println("added more connections...");
+		}
+		
+		System.out.println("connection popped : " + connectionPool.size() + " remains");
+		return conn;
 	}
-	
-	public static void returnConnection(Connection conn){
-		System.out.println("conn size :" + connectionPool.size());
+
+	public static void returnConnection(Connection conn) {
 		connectionPool.push(conn);
+		System.out.println("connection pushed : " + connectionPool.size() + " remains");
 	}
 
 	public void changeDB(String db) {
