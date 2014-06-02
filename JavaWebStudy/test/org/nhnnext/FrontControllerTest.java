@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.nhnnext.controller.BbsController;
-import org.nhnnext.controller.LoginController;
-import org.nhnnext.controller.LogoutController;
+import org.nhnnext.controller.account.Login;
+import org.nhnnext.controller.account.Logout;
 import org.nhnnext.framework.ControllerMap;
 import org.nhnnext.framework.FrontController;
 
@@ -15,8 +15,8 @@ public class FrontControllerTest {
 	
 	@Test
 	public void testControllerMap() {
-		assertTrue(ControllerMap.getController("/login.do").getClass().equals(new LoginController().getClass()));
-		assertTrue(ControllerMap.getController("/logout.do").getClass().equals(new LogoutController().getClass()));
+		assertTrue(ControllerMap.getController("/login.do").getClass().equals(new Login().getClass()));
+		assertTrue(ControllerMap.getController("/logout.do").getClass().equals(new Logout().getClass()));
 		assertTrue(ControllerMap.getController("/bbs.do").getClass().equals(new BbsController().getClass()));
 	}
 	

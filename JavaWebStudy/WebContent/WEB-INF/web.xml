@@ -12,11 +12,9 @@
 		<servlet-class>org.nhnnext.framework.FrontController</servlet-class>
 	</servlet>
 
-	<servlet>
-		<servlet-name>ServerInit</servlet-name>
-		<servlet-class>org.nhnnext.initializer.ServerInitializer</servlet-class>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
+	<listener>
+		<listener-class>org.nhnnext.initializer.ServerInitializer</listener-class>
+	</listener>
 
 </web-app>
 

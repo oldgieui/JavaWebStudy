@@ -1,4 +1,5 @@
-<%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
+<%@page import="org.nhnnext.dao.ResvDAO"%>
+<%@page import="javax.servlet.jsp.tagext.TryCatchFinally, java.util.ArrayList, org.nhnnext.dto.Reservation"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
@@ -13,38 +14,82 @@
 		<div id="header">
 			<div id="titleBar">
 				<img src="src/img/next_bi.png" id="logo">
-				<div id="signinButton" class="button">Sign in</div>
+				<%
+					if (session.getAttribute("ID") == null) {
+				%>
+					<div id="signinButton" class="button">Sign in</div>
+				<%
+					} else {
+				%>
+					<div id ="signinButton">
+				<% 
+					out.print(session.getAttribute("ID") + " ");
+				%>
+					Login completed<br>
+					<form name = 'logout' action = '/logout.do' method ='post'>
+					<input type='submit' value='로그아웃'>
+					</form></div>
+				<% 
+					}
+				%>
+				
 				<div id="loginWindow">
 					<div id="loginTitle">Sign in</div>
 					<div id="loginWrap">
 						<form name="login" action="/login.do" method="post">
 							<div id="loginInputs">
-								ID<br><input type="text" name="id"><br> 
-								Password <br><input type="password" name="password">
+								ID<br> <input type="text" name="id"><br>
+								Password <br> <input type="password" name="password">
 							</div>
 							<div id="loginButton" class="button">Sign in</div>
 						</form>
-					<div><a href="../src/pages/findAccount.html">(Forgot password?)</a> <a href="../src/pages/signUp.html">Sign Up?</a></div>
+						<div>
+							<a href="../src/pages/findAccount.html">(Forgot password?)</a> <a
+								href="../src/pages/signUp.html">Sign Up?</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="resvWindow">
-				<div id="resvHeader">
-					<div id="resvTitle"></div>
-					<div id="resvInputWrap">
-						<form name="reservation" action="/timetable.do" method="get">
-							<input name="date" type="date">
-                            <input name="startTime" type="time"> 부터
-                            <input	name="endTime" type="time"> 까지
-							<input type="submit" value="예약">
-						</form>
-					</div>
-				</div>
-				<div id="resvContainer">
-					
+			<div id="resvHeader">
+				<div id="resvTitle"></div>
+				<div id="resvInputWrap">
+					<form name="reservation" action="/addReservation.do" method="get">
+						<input name="date" type="date"> <input name="startTime"
+							type="time"> 부터 <input name="endTime" type="time">
+						까지 <input type="submit" value="예약">
+					</form>
 				</div>
 			</div>
+			<div id="resvContainer">
+				<%
+					ArrayList<Reservation> resvList = ResvDAO.getInstance()
+							.getResvsByPlace("LINK 1-1");
+					for (Reservation resv : resvList) {
+						StringBuffer buf = new StringBuffer();
+						buf.append(resv.getUserId());
+						buf.append(" | ");
+						buf.append(resv.getPlaceName());
+						buf.append(" | ");
+						buf.append(resv.getPurpose());
+						buf.append(" | ");
+						buf.append(resv.getDate());
+						buf.append(" | ");
+						buf.append(resv.getStartTime());
+						buf.append(" | ");
+						buf.append(resv.getEndTime());
+				%>
+				<div>
+					<%
+						out.println(buf.toString());
+					%>
+				</div>
+				<%
+					}
+				%>
+			</div>
+		</div>
 		<div id="campusMap">
 			<div id="prompt1-1" class="prompt">
 				prompt<br> 1-1
@@ -113,38 +158,39 @@
 
 	<script type="text/javascript">
 		var filter = document.getElementById("filter");
-        var main = document.getElementById("main");
+		var main = document.getElementById("main");
 		var map = document.getElementById("campusMap");
 		var loginWindow = document.getElementById("loginWindow");
 		var resvWindow = document.getElementById("resvWindow");
-		var resvTimeLine = document.getElementById("resvTimeLine");
 		var resvTitle = document.getElementById("resvTitle");
 		var loginWindowFlag = false;
 		var resvWindowFlag = false;
-        
-        main.addEventListener("click", function(e) {
-			console.log("id : " + e.target.id + ", class : " + e.target.className);
+
+		main.addEventListener("click", function(e) {
+			console.log("id : " + e.target.id + ", class : "
+					+ e.target.className);
 			if (e.target.id === "signinButton") {
-				showLoginWindow(); 
-			} else if (e.target.className === "prompt" || e.target.className === "link") {
+				showLoginWindow();
+			} else if (e.target.className === "prompt"
+					|| e.target.className === "link") {
 				resvTitle.innerHTML = e.target.id;
 				showResvWindow();
 			} else if (e.target.id === "loginButton") {
 				submitForm("login");
 			}
 		}, false);
-        
-        filter.addEventListener("click", function(e) {
-            closeLoginWindow();
-            closeResvWindow();
-        }, false);
+
+		filter.addEventListener("click", function(e) {
+			closeLoginWindow();
+			closeResvWindow();
+		}, false);
 
 		function showLoginWindow() {
-            if(loginWindowFlag === false){
-                loginWindowFlag = true;
-                filter.style.display = "block";
-                loginWindow.style.display = "block";    
-            }
+			if (loginWindowFlag === false) {
+				loginWindowFlag = true;
+				filter.style.display = "block";
+				loginWindow.style.display = "block";
+			}
 		}
 
 		function closeLoginWindow() {

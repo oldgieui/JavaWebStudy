@@ -29,7 +29,7 @@
 			String id = (String) session.getAttribute("id");
 			String password = (String) session.getAttribute("password");
 			UserDAO dao = UserDAO.getInstance();
-			out.println(dao.loginCheck(id, password));
+			out.println(dao.checkLogin(id, password));
 		%>
 	</div>
 </body>

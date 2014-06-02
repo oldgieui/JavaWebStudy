@@ -43,8 +43,8 @@ public class ConnectionManager {
 	
 	public static Connection getConnection() {		
 		if (connectionPool.size() < 2) {
+			System.out.println("add more connections...");
 			new ConnectionManager().addConnections();
-			System.out.println("added more connections...");
 		}
 
 		Connection conn = connectionPool.pop();

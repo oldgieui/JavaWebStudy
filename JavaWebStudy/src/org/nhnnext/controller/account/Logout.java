@@ -1,8 +1,7 @@
-package org.nhnnext.controller;
+package org.nhnnext.controller.account;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.nhnnext.framework.Controller;
 
-public class LogoutController implements Controller {
+public class Logout implements Controller {
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
@@ -20,8 +19,9 @@ public class LogoutController implements Controller {
 			System.out.println("No session");
 		}
 		session.invalidate();
-		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-		rd.forward(req, resp);
+//		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+//		rd.forward(req, resp);
+		resp.sendRedirect("/");
 	}
 
 }

@@ -1,4 +1,4 @@
-package org.nhnnext.controller;
+package org.nhnnext.controller.account;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.nhnnext.dao.UserDAO;
 import org.nhnnext.framework.Controller;
 
-public class SignUpController implements Controller {
+public class SignUp implements Controller {
 
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
@@ -23,6 +23,7 @@ public class SignUpController implements Controller {
 		String type = req.getParameter("type");
 		System.out.println(id + ", " + password + ", " + name + ", " + phone + ", " + type);
 		dao.addUser(id, password, name, email, phone, type);
+		resp.sendRedirect("/");
 	}
 
 }

@@ -1,8 +1,7 @@
-package org.nhnnext.controller;
+package org.nhnnext.controller.account;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.nhnnext.dao.UserDAO;
 import org.nhnnext.framework.Controller;
 
-public class LoginController implements Controller{
+public class Login implements Controller{
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
@@ -32,6 +31,6 @@ public class LoginController implements Controller{
 	}
 
 	private boolean checkLogin(String id, String password) {
-		return UserDAO.getInstance().loginCheck(id, password);
+		return UserDAO.getInstance().checkLogin(id, password);
 	}
 }

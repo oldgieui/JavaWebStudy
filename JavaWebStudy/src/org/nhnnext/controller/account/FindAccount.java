@@ -1,4 +1,4 @@
-package org.nhnnext.controller;
+package org.nhnnext.controller.account;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.nhnnext.dao.UserDAO;
 import org.nhnnext.framework.Controller;
 
-public class FindAccountController implements Controller {
+public class FindAccount implements Controller {
 
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
@@ -20,6 +20,7 @@ public class FindAccountController implements Controller {
 			findId(req, resp);
 		} else
 			changePw(req, resp);
+		resp.sendRedirect("/");
 	}
 
 	private void findId(HttpServletRequest req, HttpServletResponse resp) {
@@ -32,7 +33,7 @@ public class FindAccountController implements Controller {
 
 	private void changePw(HttpServletRequest req, HttpServletResponse resp) {
 		UserDAO dao = UserDAO.getInstance();
-		String newPw = dao.changePw(req.getParameter("id"), req.getParameter("email"));
+		String newPw = dao.setNewPw(req.getParameter("id"), req.getParameter("email"));
 		System.out.println(newPw);
 		HttpSession session = req.getSession(false);
 		session.setAttribute("newPw", newPw);
