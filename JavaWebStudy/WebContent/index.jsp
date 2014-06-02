@@ -15,7 +15,11 @@
 			<div id="titleBar">
 				<img src="src/img/next_bi.png" id="logo">
 				<%
-					if (session.getAttribute("ID") == null) {
+					String id = null;
+					if (session.getAttribute("ID") != null){
+						id = session.getAttribute("ID").toString();
+					}
+					if (id == null) {
 				%>
 					<div id="signinButton" class="button">Sign in</div>
 				<%
@@ -23,7 +27,7 @@
 				%>
 					<div id ="signinButton">
 				<% 
-					out.print(session.getAttribute("ID") + " ");
+					out.print(id + " ");
 				%>
 					Login completed<br>
 					<form name = 'logout' action = '/logout.do' method ='post'>
@@ -32,20 +36,22 @@
 				<% 
 					}
 				%>
-				
+
 				<div id="loginWindow">
 					<div id="loginTitle">Sign in</div>
-					<div id="loginWrap">
-						<form name="login" action="/login.do" method="post">
-							<div id="loginInputs">
-								ID<br> <input type="text" name="id"><br>
-								Password <br> <input type="password" name="password">
-							</div>
-							<div id="loginButton" class="button">Sign in</div>
-						</form>
+					<div id="loginContainer">
+						<div id="loginWrap">
+							<form name="login" action="/login.do" method="post">
+								<div id="loginInputs">
+									ID<br> <input type="text" name="id"><br>
+									Password <br> <input type="password" name="password">
+								</div>
+								<div id="loginButton" class="button">Sign in</div>
+							</form>
+						</div>
 						<div>
-							<a href="../src/pages/findAccount.html">(Forgot password?)</a> <a
-								href="../src/pages/signUp.html">Sign Up?</a>
+							<a href="../src/pages/findAccount.html">(Forgot password/account?)</a><br> 
+							<a href="../src/pages/signUp.html">Sign Up?</a>
 						</div>
 					</div>
 				</div>
@@ -55,30 +61,37 @@
 			<div id="resvHeader">
 				<div id="resvTitle"></div>
 				<div id="resvInputWrap">
+				<% if (id == null){
+				%>
+					<p>로그인해 주세요</p>
+				<%
+				} else {
+				%>
 					<form name="reservation" action="/addReservation.do" method="get">
 						<input name="date" type="date"> <input name="startTime"
 							type="time"> 부터 <input name="endTime" type="time">
 						까지 <input type="submit" value="예약">
 					</form>
+				<% } %>
 				</div>
 			</div>
 			<div id="resvContainer">
 				<%
 					ArrayList<Reservation> resvList = ResvDAO.getInstance()
-							.getResvsByPlace("LINK 1-1");
-					for (Reservation resv : resvList) {
-						StringBuffer buf = new StringBuffer();
-						buf.append(resv.getUserId());
-						buf.append(" | ");
-						buf.append(resv.getPlaceName());
-						buf.append(" | ");
-						buf.append(resv.getPurpose());
-						buf.append(" | ");
-						buf.append(resv.getDate());
-						buf.append(" | ");
-						buf.append(resv.getStartTime());
-						buf.append(" | ");
-						buf.append(resv.getEndTime());
+									.getResvList("LINK 2-3");
+							for (Reservation resv : resvList) {
+								StringBuffer buf = new StringBuffer();
+								buf.append(resv.getUserId());
+								buf.append(" | ");
+								buf.append(resv.getPlaceName());
+								buf.append(" | ");
+								buf.append(resv.getPurpose());
+								buf.append(" | ");
+								buf.append(resv.getDate());
+								buf.append(" | ");
+								buf.append(resv.getStartTime());
+								buf.append(" | ");
+								buf.append(resv.getEndTime());
 				%>
 				<div>
 					<%

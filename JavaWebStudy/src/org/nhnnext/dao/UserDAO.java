@@ -1,10 +1,13 @@
 package org.nhnnext.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.nhnnext.dto.User;
 
-public class UserDAO extends DAO {
+public class UserDAO extends DAO<User> {
 
 	private UserDAO() {
 	}
@@ -31,12 +34,15 @@ public class UserDAO extends DAO {
 		return DigestUtils.md5Hex(password);
 	}
 
-	public boolean findUser(String id) {
-		String sql = "SELECT USERID FROM USER WHERE USERID = ?";
-		if(getString(sql, id).equals(id)){
-			return true;
-		}
-		return false;
+	public User getUser(String id) {
+		String sql = "SELECT * FROM USER WHERE USERID = ?";
+		RowMapper<User> rm = new RowMapper<User>() {
+			@Override
+			public User mapRow(ResultSet rs) throws SQLException {
+				return new User(rs.getString("USERID"), rs.getString("PASSWORD"), rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("USERTYPE"));
+			}
+		};
+		return getDTO(sql, rm, id);
 	}
 
 	public String findId(String email) {

@@ -3,7 +3,6 @@ package org.nhnnext.controller.account;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,25 +18,23 @@ public class FindAccount implements Controller {
 		if (req.getParameter("id") == null) {
 			findId(req, resp);
 		} else
-			changePw(req, resp);
-		resp.sendRedirect("/");
+			setNewPw(req, resp);
+		resp.sendRedirect("./");
 	}
 
 	private void findId(HttpServletRequest req, HttpServletResponse resp) {
 		UserDAO dao = UserDAO.getInstance();
 		String id = dao.findId(req.getParameter("email"));
 		System.out.println(id);
-		Cookie cookie = new Cookie("foundId", id);
-		resp.addCookie(cookie);
+		HttpSession session = req.getSession();
+		session.setAttribute("foundId", id);
 	}
 
-	private void changePw(HttpServletRequest req, HttpServletResponse resp) {
+	private void setNewPw(HttpServletRequest req, HttpServletResponse resp) {
 		UserDAO dao = UserDAO.getInstance();
 		String newPw = dao.setNewPw(req.getParameter("id"), req.getParameter("email"));
 		System.out.println(newPw);
 		HttpSession session = req.getSession(false);
 		session.setAttribute("newPw", newPw);
-		Cookie cookie = new Cookie("newPw", newPw);
-		resp.addCookie(cookie);
 	}
 }

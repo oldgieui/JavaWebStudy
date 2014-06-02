@@ -28,13 +28,13 @@ public class ResvDAOTest {
 
 	@Test
 	public void deleteReservation() {
-		Reservation resv = new Reservation("oldgieui", "LINK 2-3", "수업", "20140531", "083212", "120212");
-		ResvDAO.getInstance().deleteResv(resv);
+//		Reservation resv = new Reservation("oldgieui", "LINK 2-3", "수업", "20140531", "083212", "120212");
+		ResvDAO.getInstance().deleteResv(1);
 	}
 	
 	@Test
 	public void getResvByPlace(){
-		ArrayList<Reservation> resvList = ResvDAO.getInstance().getResvsByPlace("LINK 2-3");
+		ArrayList<Reservation> resvList = ResvDAO.getInstance().getResvList("LINK 2-3");
 		for (int i = 0; i < resvList.size(); i++) {
 			assertEquals(resvList.get(i).getPlaceName(), "LINK 2-3");
 			printResv(resvList.get(i));

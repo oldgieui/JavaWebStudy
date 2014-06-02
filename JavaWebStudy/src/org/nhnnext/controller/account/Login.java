@@ -21,8 +21,6 @@ public class Login implements Controller{
 		String password = req.getParameter("password");
 		if (checkLogin(id, password)){
 			session.setAttribute("ID", id);
-//			RequestDispatcher rd = req.getRequestDispatcher("./");
-//			rd.forward(req, resp);
 			resp.sendRedirect("/");
 		}
 		else {

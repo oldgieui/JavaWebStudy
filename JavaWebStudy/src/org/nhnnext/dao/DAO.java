@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.nhnnext.dto.Reservation;
 import org.nhnnext.framework.ConnectionManager;
 
-public abstract class DAO {
+public abstract class DAO<T> {
 	protected Connection getConnection() {
 		return ConnectionManager.getConnection();
 	}
@@ -31,21 +30,6 @@ public abstract class DAO {
 			releaseResource(pstmt, conn);
 		}
 	}
-	
-//	protected ResultSet executeQuery(PreparedStatement pstmt, String... args) {
-//		ResultSet rs = null;
-//		try {
-//			for (int i = 0; i < args.length; i++) {
-//				pstmt.setString(i + 1, args[i]);
-//			}
-//			rs = pstmt.executeQuery();
-//			return rs;
-//		} catch (SQLException e) {
-//			System.out.println("executeQuery error : " + e.getMessage());
-//			e.printStackTrace();
-//		}
-//		return rs;
-//	}
 	
 	protected String getString(String sql, Object...args) {
 		Connection conn = null;
@@ -71,11 +55,11 @@ public abstract class DAO {
 		return str;
 	}
 	
-	protected ArrayList<Reservation> getRow(String sql, Object... args) {
+	protected ArrayList<T> getDTORow(String sql, RowMapper<T> rm, Object... args) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<Reservation> resvList = new ArrayList<Reservation>();
+		ArrayList<T> row = new ArrayList<T>();
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -84,10 +68,30 @@ public abstract class DAO {
 			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				resvList.add(new Reservation(rs.getString("USERID"), rs
-						.getString("PLACENAME"), rs.getString("PURPOSE"), rs
-						.getString("DATE"), rs.getString("STARTTIME"), rs
-						.getString("ENDTIME")));
+				row.add(rm.mapRow(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("getDTORow error : " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			releaseResource(rs, pstmt, conn);
+		}
+		return row;
+	}
+	
+	protected T getDTO(String sql, RowMapper<T> rm, Object...args){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i < args.length; i++) {
+				pstmt.setObject(i + 1, args[i]);
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rm.mapRow(rs);
 			}
 		} catch (SQLException e) {
 			System.out.println("getString error : " + e.getMessage());
@@ -95,7 +99,7 @@ public abstract class DAO {
 		} finally {
 			releaseResource(rs, pstmt, conn);
 		}
-		return resvList;
+		return null;
 	}
 	
 	// connection pool
