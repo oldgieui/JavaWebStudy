@@ -18,7 +18,7 @@ public class AddReservation implements Controller{
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String userId = session.getAttribute("ID").toString();
-		String placeName = "LINK2-3";
+		String placeName = req.getParameter("placeName").toString();
 		String purpose = "test";
 		String date = req.getParameter("date").toString();
 		String startTime = req.getParameter("startTime").toString();
@@ -27,7 +27,6 @@ public class AddReservation implements Controller{
 		Reservation resv = new Reservation(userId, placeName, purpose, date, startTime, endTime);
 		ResvDAO.getInstance().addResv(resv);
 		
-		resp.sendRedirect("/");
 	}
 
 }

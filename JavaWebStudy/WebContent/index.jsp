@@ -67,10 +67,11 @@
 				<%
 				} else {
 				%>
-					<form name="reservation" action="/addReservation.do" method="get">
-						<input name="date" type="date"> <input name="startTime"
-							type="time"> 부터 <input name="endTime" type="time">
-						까지 <input type="button" value="예약">
+					<form name="reservation" id="resvForm"> <!-- action="/addReservation.do" --><!--  method="get" -->
+						<input name="date" type="date" id="resvDate"> 
+						<input name="startTime" type="time" id="resvStartTime"> 부터 
+						<input name="endTime" type="time" id="resvEndTime">까지 
+						<input type="button" id = "sendReservation" value="예약">
 					</form>
 				<% } %>
 				</div>
@@ -177,6 +178,8 @@
 				showResvList(resvTitle.innerHTML);
 			} else if (e.target.id === "loginButton") {
 				submitForm("login");
+			} else if (e.target.id === "sendReservation"){
+				sendReservation(resvTitle.innerHTML);
 			}
 		}, false);
 
@@ -214,12 +217,13 @@
 				resvWindowFlag = false;
 				filter.style.display = "none";
 				resvWindow.style.display = "none";
-                resvContainer.innerText='';
+                
 			}
 		}
 
 		
 		function showResvList(title) {
+			resvContainer.innerText='';
 			var request = new XMLHttpRequest();
 			request.open("GET", "/getReservation.do?placeName=" + title, true);
 			request.send(null);
@@ -314,6 +318,21 @@
                         
 					}  
 					*/
+				}
+			};
+		}
+		
+		function sendReservation(placeName){
+			var request = new XMLHttpRequest();
+			var resvForm = document.getElementById("resvForm");
+			var url = "/addReservation.do?placeName=" + placeName + "&date=" + resvForm.date.value + "&startTime=" + resvForm.startTime.value + "&endTime=" + resvForm.endTime.value;
+			console.log(url);
+			request.open("GET", url, true);
+			request.send(null);
+			request.onreadystatechange = function() {
+				if (request.readyState == 4
+						&& (request.status == 200 || reqest.status == 304)) {
+					showResvList(placeName);	
 				}
 			};
 		}

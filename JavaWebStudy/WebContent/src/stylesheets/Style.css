@@ -144,10 +144,10 @@ body {
 	z-index: 2;
 	left: 50%;
 	top: 60px;
-	width: 800px;
+	width: 850px;
 	height: 450px;
 	margin: 0;
-	margin-left: -400px;
+	margin-left: -425px;
 	background-color: white;
 	border-color: black;
 	border-width: 1px;
@@ -197,11 +197,11 @@ body {
 }
 
 #resvWindow .content>.userId {
-	width: 80px;
+	width: 100px;
 }
 
 #resvWindow .content>.placeName {
-	width: 70px;
+	width: 100px;
 }
 
 #resvWindow .content>.purpose {
