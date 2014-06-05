@@ -19,7 +19,7 @@ public class FindAccount implements Controller {
 			findId(req, resp);
 		} else
 			setNewPw(req, resp);
-		resp.sendRedirect("./");
+		resp.sendRedirect("/");
 	}
 
 	private void findId(HttpServletRequest req, HttpServletResponse resp) {

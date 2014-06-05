@@ -5,8 +5,8 @@
 	<Controller uri="/signup.do" class="org.nhnnext.controller.account.SignUp" />
 	<Controller uri="/findaccount.do" class="org.nhnnext.controller.account.FindAccount" />
 	<Controller uri="/addReservation.do" class="org.nhnnext.controller.reservation.AddReservation" />
-	<!-- <Controller uri="/deleteReservation.do" class="org.nhnnext.controller.reservation.DeleteReservation" />
-	<Controller uri="/getReservation.do" class="org.nhnnext.controller.reservation.GetReservation" /> -->
-<!-- 	<Controller uri="/bbs.do" class="org.nhnnext.controller.BbsController" />
-	<Controller uri="/timetable.do" class="org.nhnnext.controller.TimetableController" /> -->
+	<Controller uri="/deleteReservation.do" class="org.nhnnext.controller.reservation.DeleteReservation" />
+	<Controller uri="/getReservation.do" class="org.nhnnext.controller.reservation.GetReservation" />
+	<Controller uri="/bbs.do" class="org.nhnnext.controller.BbsController" />
+	<Controller uri="/timetable.do" class="org.nhnnext.controller.TimetableController"/>
 </ControllerMap>

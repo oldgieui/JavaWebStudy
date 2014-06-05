@@ -19,8 +19,6 @@ public class Logout implements Controller {
 			System.out.println("No session");
 		}
 		session.invalidate();
-//		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-//		rd.forward(req, resp);
 		resp.sendRedirect("/");
 	}
 

@@ -22,7 +22,7 @@ public class ResvDAOTest {
 	
 	@Test
 	public void addReservation() {
-		Reservation resv = new Reservation("oldgieui", "LINK 2-3", "수업", "20140531", "083212", "120212");
+		Reservation resv = new Reservation("oldgieui", "LINK2-3", "대실망쑈", "20140531", "083212", "120212");
 		ResvDAO.getInstance().addResv(resv);
 	}
 

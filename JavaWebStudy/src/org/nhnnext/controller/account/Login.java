@@ -21,11 +21,11 @@ public class Login implements Controller{
 		String password = req.getParameter("password");
 		if (checkLogin(id, password)){
 			session.setAttribute("ID", id);
-			resp.sendRedirect("/");
 		}
 		else {
 			System.err.println("Login error");
 		}
+		resp.sendRedirect("/");
 	}
 
 	private boolean checkLogin(String id, String password) {

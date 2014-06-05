@@ -23,7 +23,6 @@ public class SignUp implements Controller {
 		String type = req.getParameter("type");
 		System.out.println(id + ", " + password + ", " + name + ", " + phone + ", " + type);
 		dao.addUser(id, password, name, email, phone, type);
-		resp.sendRedirect("/");
 	}
 
 }

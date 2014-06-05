@@ -70,37 +70,22 @@
 					<form name="reservation" action="/addReservation.do" method="get">
 						<input name="date" type="date"> <input name="startTime"
 							type="time"> 부터 <input name="endTime" type="time">
-						까지 <input type="submit" value="예약">
+						까지 <input type="button" value="예약">
 					</form>
 				<% } %>
 				</div>
 			</div>
+			<div id="resvCategory" class="content">
+				<div class="rid">rid</div>
+				<div class="userID">대여자</div>
+				<div class="placeName">장소명</div>
+				<div class="purpose">사용 목적</div>
+				<div class="date">예약 일자</div>
+				<div class="startTime">시작 시각</div>
+				<div class="endTime">종료 시각</div>
+				<div class="submitTime">등록 일시</div>
+			</div>
 			<div id="resvContainer">
-				<%
-					ArrayList<Reservation> resvList = ResvDAO.getInstance()
-									.getResvList("LINK 2-3");
-							for (Reservation resv : resvList) {
-								StringBuffer buf = new StringBuffer();
-								buf.append(resv.getUserId());
-								buf.append(" | ");
-								buf.append(resv.getPlaceName());
-								buf.append(" | ");
-								buf.append(resv.getPurpose());
-								buf.append(" | ");
-								buf.append(resv.getDate());
-								buf.append(" | ");
-								buf.append(resv.getStartTime());
-								buf.append(" | ");
-								buf.append(resv.getEndTime());
-				%>
-				<div>
-					<%
-						out.println(buf.toString());
-					%>
-				</div>
-				<%
-					}
-				%>
 			</div>
 		</div>
 		<div id="campusMap">
@@ -176,6 +161,7 @@
 		var loginWindow = document.getElementById("loginWindow");
 		var resvWindow = document.getElementById("resvWindow");
 		var resvTitle = document.getElementById("resvTitle");
+		var resvContainer = document.getElementById("resvContainer");
 		var loginWindowFlag = false;
 		var resvWindowFlag = false;
 
@@ -188,6 +174,7 @@
 					|| e.target.className === "link") {
 				resvTitle.innerHTML = e.target.id;
 				showResvWindow();
+				showResvList(resvTitle.innerHTML);
 			} else if (e.target.id === "loginButton") {
 				submitForm("login");
 			}
@@ -227,7 +214,108 @@
 				resvWindowFlag = false;
 				filter.style.display = "none";
 				resvWindow.style.display = "none";
+                resvContainer.innerText='';
 			}
+		}
+
+		
+		function showResvList(title) {
+			var request = new XMLHttpRequest();
+			request.open("GET", "/getReservation.do?placeName=" + title, true);
+			request.send(null);
+			request.onreadystatechange = function() {
+				//한번 받아왔던 내용과 같으면 다시 로드하지 않게 하고 싶은데... 작동할 때마다 다 200으로 뜨네 
+				if (request.readyState == 4
+						&& (request.status == 200 || reqest.status == 304)) {
+					var result = JSON.parse(request.responseText);
+					console.log(result);
+					//일일이 생성하지 않고 content 클래스를 가진 엘리먼트 밑에 다 붙어있어서(구조체마냥) 상위 엘리먼트를 생성하면 밑에 다 붙어 나오게 할 수는 없을까
+					for (var i = 0; i < result.length; i++) {
+						var content = document.createElement("div");
+      					content.setAttribute("class", "content");
+      					var rid = document.createElement("div");
+      					rid.setAttribute("class", "rid");
+      					rid.innerHTML = result[i].RID;
+      					var userId = document.createElement("div");
+      					userId.setAttribute("class", "userId");
+                        userId.innerHTML = result[i].USERID;
+      					var placeName = document.createElement("div");
+      					placeName.setAttribute("class", "placeName");
+                        placeName.innerHTML = result[i].PLACENAME;
+      					var purpose = document.createElement("div");
+      					purpose.setAttribute("class", "purpose");
+                        purpose.innerHTML = result[i].PURPOSE;
+      					var date = document.createElement("div");
+      					date.setAttribute("class", "date");
+                        date.innerHTML = result[i].DATE;
+      					var startTime = document.createElement("div");
+      					startTime.setAttribute("class", "startTime");
+                        startTime.innerHTML = result[i].STARTTIME;
+      					var endTime = document.createElement("div");
+      					endTime.setAttribute("class", "endTime");
+                        endTime.innerHTML = result[i].ENDTIME;
+      					var submitTime = document.createElement("div");
+      					submitTime.setAttribute("class", "submitTime");
+                        submitTime.innerHTML = result[i].SUBMITTIME;
+                        
+                        content.appendChild(rid);
+                        content.appendChild(userId);
+                        content.appendChild(placeName);
+                        content.appendChild(purpose);
+                        content.appendChild(date);
+                        content.appendChild(startTime);
+                        content.appendChild(endTime);
+                        content.appendChild(submitTime);
+                        
+                        resvContainer.appendChild(content);
+					}
+
+/* 					왜 foreach로는 동작을 안 하는가.... 고통....
+ * 
+ 
+ 						for (var obj in result) {
+						var content = document.createElement("div");
+      					content.setAttribute("class", "content");
+      					var rid = document.createElement("div");
+      					rid.setAttribute("class", "rid");
+      					rid.innerHTML = obj.RID;
+      					var userId = document.createElement("div");
+      					userId.setAttribute("class", "userId");
+                        userId.innerHTML = obj.userId;
+      					var placeName = document.createElement("div");
+      					placeName.setAttribute("class", "placeName");
+                        placeName.innerHTML = obj.PLACENAME;
+      					var purpose = document.createElement("div");
+      					purpose.setAttribute("class", "purpose");
+                        purpose.innerHTML = obj.PURPOSE;
+      					var date = document.createElement("div");
+      					date.setAttribute("class", "date");
+                        date.innerHTML = obj.DATE;
+      					var startTime = document.createElement("div");
+      					startTime.setAttribute("class", "startTime");
+                        startTime.innerHTML = obj.STARTTIME;
+      					var endTime = document.createElement("div");
+      					endTime.setAttribute("class", "endTime");
+                        endTime.innerHTML = obj.ENDTIME;
+      					var submitTime = document.createElement("div");
+      					submitTime.setAttribute("class", "submitTime");
+                        submitTime.innerHTML = obj.SUBMITTIME;
+                        
+                        content.appendChild(rid);
+                        content.appendChild(userId);
+                        content.appendChild(placeName);
+                        content.appendChild(purpose);
+                        content.appendChild(date);
+                        content.appendChild(startTime);
+                        content.appendChild(endTime);
+                        content.appendChild(submitTime);
+                        
+                        resvContainer.appendChild(content);
+                        
+					}  
+					*/
+				}
+			};
 		}
 
 		function submitForm(formName) {

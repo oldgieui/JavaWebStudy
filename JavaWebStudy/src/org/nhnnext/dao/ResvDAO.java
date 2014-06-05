@@ -52,10 +52,11 @@ public class ResvDAO extends DAO<Reservation> {
 		RowMapper<Reservation> rm = new RowMapper<Reservation>() {
 			@Override
 			public Reservation mapRow(ResultSet rs) throws SQLException {
-				return new Reservation(rs.getString("USERID"),
-						rs.getString("PLACENAME"), rs.getString("PURPOSE"),
-						rs.getString("DATE"), rs.getString("STARTTIME"),
-						rs.getString("ENDTIME"));
+				return new Reservation(rs.getInt("RID"),
+						rs.getString("USERID"), rs.getString("PLACENAME"),
+						rs.getString("PURPOSE"), rs.getString("DATE"),
+						rs.getString("STARTTIME"), rs.getString("ENDTIME"),
+						rs.getString("SUBMITTIME"));
 			}
 		};
 		return getDTORow(sql, rm, placeName);
@@ -68,10 +69,11 @@ public class ResvDAO extends DAO<Reservation> {
 		RowMapper<Reservation> rm = new RowMapper<Reservation>() {
 			@Override
 			public Reservation mapRow(ResultSet rs) throws SQLException {
-				return new Reservation(rs.getString("USERID"),
-						rs.getString("PLACENAME"), rs.getString("PURPOSE"),
-						rs.getString("DATE"), rs.getString("STARTTIME"),
-						rs.getString("ENDTIME"));
+				return new Reservation(rs.getInt("RID"),
+						rs.getString("USERID"), rs.getString("PLACENAME"),
+						rs.getString("PURPOSE"), rs.getString("DATE"),
+						rs.getString("STARTTIME"), rs.getString("ENDTIME"),
+						rs.getString("SUBMITTIME"));
 			}
 		};
 

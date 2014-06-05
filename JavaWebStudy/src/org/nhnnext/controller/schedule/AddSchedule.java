@@ -24,7 +24,6 @@ public class AddSchedule implements Controller {
 				req.getParameter("startTime"), req.getParameter("endTime"));
 		
 		ScheduleDAO.getInstance().addSchedule(sch);
-		resp.sendRedirect("./");
 	}
 
 }

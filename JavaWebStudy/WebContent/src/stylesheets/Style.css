@@ -13,12 +13,12 @@ body {
 
 #filter {
 	z-index: 1;
-    position: fixed;
-    left: 0px;
-    top: 0px;
-	display : none;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	display: none;
 	background-color: black;
-    opacity: 0.5;
+	opacity: 0.5;
 	width: 100%;
 	height: 100%;
 }
@@ -68,8 +68,8 @@ body {
 
 #loginWindow {
 	z-index: 2;
-	display: none; 
-	position : absolute;
+	display: none;
+	position: absolute;
 	right: 0px;
 	top: 60px;
 	width: 300px;
@@ -102,7 +102,7 @@ body {
 	padding: 5%;
 }
 
-#loginWrap:after{
+#loginWrap:after {
 	content: "";
 	display: block;
 	clear: both;
@@ -110,8 +110,8 @@ body {
 
 #loginInputs {
 	margin-top: 5%;
-	width:196px;
-	float:left;
+	width: 196px;
+	float: left;
 }
 
 #loginInputs input {
@@ -121,11 +121,11 @@ body {
 
 #loginButton {
 	margin: 0px;
-	float:right;
+	float: right;
 }
 
-#loginWrap #loginButton{
-	margin-top:5%;
+#loginWrap #loginButton {
+	margin-top: 5%;
 	height: 87px;
 }
 
@@ -140,14 +140,14 @@ body {
 
 #resvWindow {
 	position: absolute;
-	display: none; 
-	z-index : 2;
-	left : 50%;
+	display: none;
+	z-index: 2;
+	left: 50%;
 	top: 60px;
-	width: 650px;
+	width: 800px;
 	height: 450px;
 	margin: 0;
-	margin-left: -325px;
+	margin-left: -400px;
 	background-color: white;
 	border-color: black;
 	border-width: 1px;
@@ -162,23 +162,66 @@ body {
 	background-color: skyblue;
 	text-align: center;
 	height: 15%;
+	border-bottom: 1px solid black;
 }
 
 #resvContainer {
 	position: relative;
-	height: 85%;
+	height: auto;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
 
-#resvTimeLine {
-	float: left;
-	width: 20%;
+#resvCategory {
+	background-color: gray;
 }
 
-#resvContentLine {
-	float: right;
-	width: 80%;
+#resvWindow .content {
+	position: relative;
+	width: 100%;
+	height: 25px;
+	background-color: aqua;
+	border-bottom: 1px solid gray;
+	overflow-x: auto;
+}
+
+#resvWindow .content>div {
+	position: relative;
+	border-right: 1px solid gray;
+	display: inline-block;
+	height: 100%;
+}
+
+#resvWindow .content>.rid {
+	display: none;
+}
+
+#resvWindow .content>.userId {
+	width: 80px;
+}
+
+#resvWindow .content>.placeName {
+	width: 70px;
+}
+
+#resvWindow .content>.purpose {
+	width: 100px;
+}
+
+#resvWindow .content>.date {
+	width: 110px;
+}
+
+#resvWindow .content>.startTime {
+	width: 88px;
+}
+
+#resvWindow .content>.endTime {
+	width: 88px;
+}
+
+#resvWindow .content>.submitTime {
+	width: 214px;
 }
 
 .hour {
@@ -218,7 +261,7 @@ body {
 	top: 304px;
 	width: 42px;
 	height: 56px;
-	font-size:11px;
+	font-size: 11px;
 }
 
 #prompt2-4 {
@@ -300,22 +343,22 @@ body {
 	height: 26px;
 }
 
-#linkS-5, #linkS-6, #linkS-7, #linkS-8 {
+#linkS-5,#linkS-6,#linkS-7,#linkS-8 {
 	left: 530px;
 	width: 55px;
 	height: 26px;
 }
 
-#linkS-5 { 
+#linkS-5 {
 	top: 3px;
 }
 
-#linkS-6 { 
-	top: 33px; 
+#linkS-6 {
+	top: 33px;
 }
 
-#linkS-7 { 
-	top: 62px; 
+#linkS-7 {
+	top: 62px;
 }
 
 #linkS-8 {
