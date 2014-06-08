@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import org.nhnnext.dto.BbsArticle;
 
 //동일 인스턴스에서도 각 스레드에서 메소드를 사용할 때 참조하는 주소가 다르므로 connection 등을 로컬로 사용해야 추가적인 인스턴스 생성을 방지할 수 있다 
-public class BbsDAO extends DAO {
+public class BbsDAO extends DAO<BbsArticle> {
 	private BbsDAO() {
 	}
 	

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import org.nhnnext.dto.Timetable;
 
-public class TimetableDAO extends DAO {
+public class TimetableDAO extends DAO<Timetable> {
 
 	private TimetableDAO() {
 	}

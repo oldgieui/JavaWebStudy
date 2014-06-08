@@ -16,10 +16,12 @@ public class AddReservation implements Controller{
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+//		req.setCharacterEncoding("UTF-8");
+//		resp.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		String userId = session.getAttribute("ID").toString();
 		String placeName = req.getParameter("placeName").toString();
-		String purpose = "test";
+		String purpose = req.getParameter("purpose").toString();
 		String date = req.getParameter("date").toString();
 		String startTime = req.getParameter("startTime").toString();
 		String endTime = req.getParameter("endTime").toString();
