@@ -18,6 +18,7 @@
 			<div id="titleBar">
 				<img src="src/img/next_bi.png" id="logo">
 				<%
+					/* session.setAttribute("ID", "oldgieui"); */
 					String id = null;
 					if (session.getAttribute("ID") != null) {
 						id = session.getAttribute("ID").toString();
@@ -74,8 +75,6 @@
 						} else {
 					%>
 					<form name="reservation" id="resvForm">
-						<!-- action="/addReservation.do" -->
-						<!--  method="get" -->
 						<input name="date" type="date" id="resvDate"> <input
 							name="startTime" type="time" id="resvStartTime"> 부터 <input
 							name="endTime" type="time" id="resvEndTime">까지 <input
