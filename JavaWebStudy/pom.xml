@@ -7,23 +7,11 @@
 	<packaging>war</packaging>
 	<name>GetThatRoom</name>
 	<description>프롬프트 &amp; 링크 예약 시스템 </description>
+
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>catalina</artifactId>
-			<version>6.0.41</version>
-		</dependency>
-		<dependency>
-	<groupId>org.apache.tomcat</groupId>
-	<artifactId>tomcat-catalina</artifactId>
-	<version>8.0.8</version>
-</dependency>
-		<dependency>
-	<groupId>org.apache.tomcat</groupId>
-	<artifactId>coyote</artifactId>
-	<version>6.0.41</version>
-</dependency>
-		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -53,9 +41,16 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>JavaWebStudy</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<resources>
+			<resource>
+				<directory>resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
 			<resource>
 				<directory>src</directory>
 				<excludes>
@@ -65,21 +60,20 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat6-maven-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<wtpversion>2.0</wtpversion>
+					<wtpContextName>/</wtpContextName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -89,6 +83,11 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -32,7 +32,7 @@ public class FrontController extends HttpServlet {
 		System.out.println("service start.");
 		String uri = req.getRequestURI();
 		uri = uri.split(".do", 1)[0];
-		System.out.println(uri);
+		System.out.println("request URI : " + uri);
 		ControllerMap.getController(uri).service(req, resp);
 	}
 
