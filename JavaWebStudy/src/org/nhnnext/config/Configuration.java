@@ -1,8 +1,7 @@
 package org.nhnnext.config;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class Configuration {
@@ -10,18 +9,15 @@ public abstract class Configuration {
 
 	public abstract void init();
 
-	public void loadFile(String fileName) {
-		// URL url = ClassLoader.getSystemResource(fileName);
-		// System.out.println(url.toString());
-		File configFile = new File(fileName);
+	protected void loadFile(InputStream is) {
 		try {
 			props = new Properties();
-			FileInputStream fis = new FileInputStream(configFile);
-			props.load(new BufferedInputStream(fis));
-			fis.close();
+			props.load(new BufferedInputStream(is));
+			is.close();
 		} catch (Exception e) {
 			System.err
 					.println("load properties file error : " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

@@ -1,7 +1,6 @@
 package org.nhnnext.initializer;
 
-import java.io.File;
-import java.net.URL;
+import java.io.InputStream;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -16,13 +15,17 @@ public class ControllerInitializer {
 		try {
 			SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 			
-			URL location = ControllerInitializer.class.getProtectionDomain().getCodeSource().getLocation();
-			String path = location.getPath();
-			String filePath = path.substring( 0, path.lastIndexOf('/')+1);
+//			URL location = ControllerInitializer.class.getProtectionDomain().getCodeSource().getLocation();
+//			String path = location.getPath();
+//			String filePath = path.substring( 0, path.lastIndexOf('/')+1);
 			
-			File xmlFile = new File(filePath+"ControllerInfo.xml");
-			parser.parse(xmlFile, new XmlParser());
-
+//			File xmlFile = new File(filePath+"ControllerInfo.xml");
+//			parser.parse(xmlFile, new XmlParser());
+			
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream("ControllerInfo.xml");
+					
+			parser.parse(is, new XmlParser());
+			is.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

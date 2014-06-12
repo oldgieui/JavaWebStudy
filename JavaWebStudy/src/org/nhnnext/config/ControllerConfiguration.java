@@ -1,16 +1,19 @@
 package org.nhnnext.config;
 
+import java.io.InputStream;
+
 import org.nhnnext.framework.Controller;
 import org.nhnnext.framework.ControllerMap;
 
 public class ControllerConfiguration extends Configuration {
 	public ControllerConfiguration() {
-		loadFile("/Users/oldgieui/git/JavaWebStudy/JavaWebStudy/controllers.properties");
 	}
 
 	@Override
 	public void init() {
 		try {
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream("controllers.properties");
+			loadFile(is);
 			ControllerMap.addController(getValue("login.uri"), (Controller)Class.forName(getValue("login.class")).newInstance());
 			ControllerMap.addController(getValue("logout.uri"), (Controller)Class.forName(getValue("logout.class")).newInstance());
 			ControllerMap.addController(getValue("bbs.uri"), (Controller)Class.forName(getValue("bbs.class")).newInstance());
