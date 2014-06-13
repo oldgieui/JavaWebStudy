@@ -18,7 +18,6 @@
 			<div id="titleBar">
 				<img src="src/img/next_bi.png" id="logo">
 				<%
-					/* session.setAttribute("ID", "oldgieui"); */
 					String id = null;
 					if (session.getAttribute("ID") != null) {
 						id = session.getAttribute("ID").toString();
