@@ -1,3 +1,7 @@
+-- ------------------------
+-- CREATE DATABASE 
+-- ------------------------
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -56,18 +60,19 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `RESVSYSTEM`.`history` ;
 
-CREATE TABLE IF NOT EXISTS `RESVSYSTEM`.`history` (
-  `HISTORYID` INT NOT NULL AUTO_INCREMENT,
-  `USERID` VARCHAR(12) NOT NULL,
-  `PLACENAME` VARCHAR(12) NOT NULL,
-  `PURPOSE` VARCHAR(100) NOT NULL,
-  `DATE` DATE NOT NULL,
-  `STARTTIME` TIME NOT NULL,
-  `ENDTIME` TIME NOT NULL,
-  `SUBMITTIME` DATETIME NOT NULL,
-  PRIMARY KEY (`HISTORYID`))
-ENGINE = InnoDB;
-
+CREATE TABLE `history` (
+  `historyid` int(10) unsigned NOT NULL,
+  `USERID` varchar(12) NOT NULL,
+  `PLACENAME` varchar(12) NOT NULL,
+  `PURPOSE` varchar(100) NOT NULL,
+  `DATE` date NOT NULL,
+  `STARTTIME` time NOT NULL,
+  `ENDTIME` time NOT NULL,
+  `SUBMITTIME` datetime NOT NULL,
+  KEY `Index_history_1` (`DATE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
 
 -- -----------------------------------------------------
 -- Table `RESVSYSTEM`.`webboard`
@@ -155,3 +160,49 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- ---------------------
+-- CREATE DATABASE END
+-- ---------------------
+
+
+
+-- ---------------------------------------------------------------------------------
+-- WITHOUT ANY INDEX
+explain SELECT RESV.*,U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE PLACENAME = "prompt2-4" AND U.USERID = RESV.USERID;
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+| id | select_type | table | type   | possible_keys                                            | key                          | key_len | ref                    | rows | Extra                 |
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+|  1 | SIMPLE      | RESV  | ref    | fk_USER_has_PLACE_PLACE1_idx,fk_USER_has_PLACE_USER1_idx | fk_USER_has_PLACE_PLACE1_idx | 38      | const                  |    1 | Using index condition |
+|  1 | SIMPLE      | U     | eq_ref | PRIMARY,USERID_UNIQUE                                    | PRIMARY                      | 38      | resvsystem.RESV.USERID |    1 | NULL                  |
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+
+EXPLAIN SELECT RESV.*,U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE RESV.USERID = U.USERID;
++----+-------------+-------+------+-----------------------------+-----------------------------+---------+---------------------+------+-------+
+| id | select_type | table | type | possible_keys               | key                         | key_len | ref                 | rows | Extra |
++----+-------------+-------+------+-----------------------------+-----------------------------+---------+---------------------+------+-------+
+|  1 | SIMPLE      | U     | ALL  | PRIMARY,USERID_UNIQUE       | NULL                        | NULL    | NULL                |    5 | NULL  |
+|  1 | SIMPLE      | RESV  | ref  | fk_USER_has_PLACE_USER1_idx | fk_USER_has_PLACE_USER1_idx | 38      | resvsystem.U.USERID |    1 | NULL  |
++----+-------------+-------+------+-----------------------------+-----------------------------+---------+---------------------+------+-------+
+-- ---------------------------------------------------------------------------------
+CREATE INDEX IDX_USERNAME ON USER(USERNAME);
+-- ---------------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------------
+-- WITH INDEX ON USERNAME
+explain SELECT RESV.*,U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE PLACENAME = "prompt2-4" AND U.USERID = RESV.USERID;
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+| id | select_type | table | type   | possible_keys                                            | key                          | key_len | ref                    | rows | Extra                 |
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+|  1 | SIMPLE      | RESV  | ref    | fk_USER_has_PLACE_PLACE1_idx,fk_USER_has_PLACE_USER1_idx | fk_USER_has_PLACE_PLACE1_idx | 38      | const                  |    1 | Using index condition |
+|  1 | SIMPLE      | U     | eq_ref | PRIMARY,USERID_UNIQUE                                    | PRIMARY                      | 38      | resvsystem.RESV.USERID |    1 | NULL                  |
++----+-------------+-------+--------+----------------------------------------------------------+------------------------------+---------+------------------------+------+-----------------------+
+
+EXPLAIN SELECT RESV.*,U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE RESV.USERID = U.USERID;
++----+-------------+-------+-------+-----------------------------+-----------------------------+---------+---------------------+------+-------------+
+| id | select_type | table | type  | possible_keys               | key                         | key_len | ref                 | rows | Extra       |
++----+-------------+-------+-------+-----------------------------+-----------------------------+---------+---------------------+------+-------------+
+|  1 | SIMPLE      | U     | index | PRIMARY,USERID_UNIQUE       | IDX_USERNAME                | 137     | NULL                |    5 | Using index |
+|  1 | SIMPLE      | RESV  | ref   | fk_USER_has_PLACE_USER1_idx | fk_USER_has_PLACE_USER1_idx | 38      | resvsystem.U.USERID |    1 | NULL        |
++----+-------------+-------+-------+-----------------------------+-----------------------------+---------+---------------------+------+-------------+
+-- ---------------------------------------------------------------------------------

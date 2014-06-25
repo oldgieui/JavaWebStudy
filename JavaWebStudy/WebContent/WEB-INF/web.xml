@@ -11,6 +11,19 @@
 		<servlet-name>Front</servlet-name>
 		<servlet-class>org.nhnnext.framework.FrontController</servlet-class>
 	</servlet>
+	
+	<filter>
+		<filter-name>SimpleFilter</filter-name>
+		<filter-class>org.nhnnext.filter.SimpleFilter</filter-class>
+		<init-param>
+			<param-name>LOGFILE_NAME</param-name>
+			<param-value>/testlog.log</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SimpleFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<listener>
 		<listener-class>org.nhnnext.initializer.ServerInitializer</listener-class>

@@ -41,22 +41,17 @@ public class ResvDAO extends DAO<Reservation> {
 		executeUpdate("DELETE FROM reservation WHERE RID = ?", rid);
 	}
 
-	// public void updateResv(Reservation oldResv, Reservation newResv) {
-	// System.out.println("Update Reservation...");
-	// String sql = "UPDATE reservation SET USERID = ?, PLACENAME"
-	// }
-
 	public ArrayList<Reservation> getResvList(String placeName) {
 		System.out.println("Get Reservation by place name...");
-		String sql = "SELECT * FROM reservation WHERE PLACENAME = ?";
+		String sql = "SELECT RESV.*, U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE PLACENAME = ? AND U.USERID = RESV.USERID;";
 		RowMapper<Reservation> rm = new RowMapper<Reservation>() {
 			@Override
 			public Reservation mapRow(ResultSet rs) throws SQLException {
 				return new Reservation(rs.getInt("RID"),
-						rs.getString("USERID"), rs.getString("PLACENAME"),
-						rs.getString("PURPOSE"), rs.getString("DATE"),
-						rs.getString("STARTTIME"), rs.getString("ENDTIME"),
-						rs.getString("SUBMITTIME"));
+						rs.getString("USERID"), rs.getString("USERNAME"),
+						rs.getString("PLACENAME"), rs.getString("PURPOSE"),
+						rs.getString("DATE"), rs.getString("STARTTIME"),
+						rs.getString("ENDTIME"), rs.getString("SUBMITTIME"));
 			}
 		};
 		return getDTORow(sql, rm, placeName);
@@ -65,15 +60,15 @@ public class ResvDAO extends DAO<Reservation> {
 	public Reservation getResv(String userId, String placeName, String purpose,
 			String date, String startTime, String endTime) {
 		System.out.println("Get Reservation...");
-		String sql = "SELECT * FROM reservation WHERE USERID = ? AND PLACENAME = ? AND PURPOSE = ? AND DATE = ? AND STARTTIME = ? AND ENDTIME = ?";
+		String sql = "SELECT RESV.*, U.USERNAME FROM RESERVATION RESV INNER JOIN USER U WHERE USERID = ? AND PLACENAME = ? AND PURPOSE = ? AND DATE = ? AND STARTTIME = ? AND ENDTIME = ? AND U.USERID = RESV.USERID;";
 		RowMapper<Reservation> rm = new RowMapper<Reservation>() {
 			@Override
 			public Reservation mapRow(ResultSet rs) throws SQLException {
 				return new Reservation(rs.getInt("RID"),
-						rs.getString("USERID"), rs.getString("PLACENAME"),
-						rs.getString("PURPOSE"), rs.getString("DATE"),
-						rs.getString("STARTTIME"), rs.getString("ENDTIME"),
-						rs.getString("SUBMITTIME"));
+						rs.getString("USERID"), rs.getString("USERNAME"),
+						rs.getString("PLACENAME"), rs.getString("PURPOSE"),
+						rs.getString("DATE"), rs.getString("STARTTIME"),
+						rs.getString("ENDTIME"), rs.getString("SUBMITTIME"));
 			}
 		};
 

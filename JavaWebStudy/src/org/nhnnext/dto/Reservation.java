@@ -3,6 +3,7 @@ package org.nhnnext.dto;
 public class Reservation {
 	private int rid;
 	private String userId;
+	private String userName;
 	private String placeName;
 	private String purpose;
 	private String date;
@@ -14,10 +15,12 @@ public class Reservation {
 	}
 
 	//DB로부터 받을 때 씀 
-	public Reservation(int rid, String userId, String placeName,
-			String purpose, String date, String startTime, String endTime, String submitTime) {
+	public Reservation(int rid, String userId, String userName,
+			String placeName, String purpose, String date, String startTime,
+			String endTime, String submitTime) {
 		this.rid = rid;
 		this.userId = userId;
+		this.userName = userName;
 		this.placeName = placeName;
 		this.purpose = purpose;
 		this.date = date;
@@ -47,6 +50,14 @@ public class Reservation {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPlaceName() {

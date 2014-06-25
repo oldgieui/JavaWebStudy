@@ -9,4 +9,5 @@
 	<Controller uri="/getReservation.do" class="org.nhnnext.controller.reservation.GetReservation" />
 	<Controller uri="/bbs.do" class="org.nhnnext.controller.BbsController" />
 	<Controller uri="/timetable.do" class="org.nhnnext.controller.TimetableController"/>
+	<Controller uri="/history.do" class="org.nhnnext.controller.HistoryController"/>
 </ControllerMap>

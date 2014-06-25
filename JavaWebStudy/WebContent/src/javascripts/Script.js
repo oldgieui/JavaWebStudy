@@ -59,17 +59,15 @@ function showResvList(title) {
 	request.open("GET", "/getReservation.do?placeName=" + title, true);
 	request.send(null);
 	request.onreadystatechange = function() {
-		// 한번 받아왔던 내용과 같으면 다시 로드하지 않게 하고 싶은데... 작동할 때마다 다 200으로 뜨네
 		if (request.readyState == 4
 				&& (request.status == 200 || reqest.status == 304)) {
 			var result = JSON.parse(request.responseText);
 			console.log(result);
-			// 일일이 생성하지 않고 content 클래스를 가진 엘리먼트 밑에 다 붙어있어서(구조체마냥) 상위 엘리먼트를 생성하면
-			// 밑에 다 붙어 나오게 할 수는 없을까
 			for (var i = 0; i < result.length; i++) {
 				var row = document.createElement("tr");
 				var rowHTML = "<td>" + result[i].RID + "</td>";
 				rowHTML = rowHTML + "<td>" + result[i].USERID + "</td>";
+				rowHTML = rowHTML + "<td>" + result[i].USERNAME + "</td>";
 				rowHTML = rowHTML + "<td>" + result[i].PLACENAME + "</td>";
 				rowHTML = rowHTML + "<td>" + result[i].PURPOSE + "</td>";
 				rowHTML = rowHTML + "<td>" + result[i].DATE + "</td>";

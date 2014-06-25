@@ -206,7 +206,7 @@ body {
 }
 
 /* //UI Object */
-.tbl_type tr>td:first-child,.tbl_type tr>th:first-child {
+.tbl_type tr>th:first-child, .tbl_type tr>th:nth-child(2), .tbl_type tr>td:first-child,  .tbl_type tr>td:nth-child(2){
 	display: none;
 }
 

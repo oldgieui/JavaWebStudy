@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/src/stylesheets/Style.css">
+<link rel="stylesheet" type="text/css" href="../src/stylesheets/Style.css">
 <title>GetThatROOM :: CAMPUS MAP ::</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
 	<div id="main">
 		<div id="header">
 			<div id="titleBar">
-				<img src="src/img/next_bi.png" id="logo">
+				<a href = "localhost:8080/"><img src="../src/img/next_bi.png" id="logo"></a>
 				<%
 					String id = null;
 					if (session.getAttribute("ID") != null) {
@@ -97,6 +97,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Rid</th>
+							<th scope="col">UserId</th>
 							<th scope="col">사용자</th>
 							<th scope="col">장소</th>
 							<th scope="col">사용 목적</th>

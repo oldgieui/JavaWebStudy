@@ -26,13 +26,14 @@ public class GetReservation implements Controller{
 		for (Reservation resv : resvList) {
 			String rid = jc.createNameValuePair("RID", resv.getRid());
 			String userId = jc.createNameValuePair("USERID", resv.getUserId());
+			String userName = jc.createNameValuePair("USERNAME", resv.getUserName());
 			String placeName = jc.createNameValuePair("PLACENAME", resv.getPlaceName());
 			String purpose = jc.createNameValuePair("PURPOSE", resv.getPurpose());
 			String date = jc.createNameValuePair("DATE", resv.getDate());
 			String startTime= jc.createNameValuePair("STARTTIME", resv.getStartTime());
 			String endTime = jc.createNameValuePair("ENDTIME", resv.getEndTime());
 			String submitTime = jc.createNameValuePair("SUBMITTIME", resv.getSubmitTime());
-			ajaxObjList.add(jc.createObject(rid, userId, placeName, purpose, date, startTime, endTime, submitTime));
+			ajaxObjList.add(jc.createObject(rid, userId, userName, placeName, purpose, date, startTime, endTime, submitTime));
 		}
 		
 		String array = jc.createArray(ajaxObjList);
