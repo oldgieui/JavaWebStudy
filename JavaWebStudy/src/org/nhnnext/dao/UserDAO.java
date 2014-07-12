@@ -2,6 +2,7 @@ package org.nhnnext.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -43,6 +44,17 @@ public class UserDAO extends DAO<User> {
 			}
 		};
 		return getDTO(sql, rm, id);
+	}
+
+	public ArrayList<User> getAllUser() {
+		String sql = "SELECT * FROM USER";
+		RowMapper<User> rm = new RowMapper<User>() {
+			@Override
+			public User mapRow(ResultSet rs) throws SQLException {
+				return new User(rs.getString("USERID"), rs.getString("PASSWORD"), rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("USERTYPE"));
+			}
+		};
+		return getDTORow(sql, rm);
 	}
 
 	public String findId(String email) {
